@@ -7,13 +7,18 @@
 # This program runs BWA using Work Queue.  It accepts the query and reference
 # sequence as arguments on the command line.
 
+use strict "refs";
+use strict "vars";
+use warnings;
+
 use Error qw(:try);
 use Error::Simple;
 use Getopt::Long qw(:config no_ignore_case);
 
-use work_queue;
+use Work_Queue;
 
-my $num_reads = 200000;
+my $num_reads = 10000;
+my $category_name = "default";
 
 my $usage = "
 wq_bwa.pl [options] <ref> <query>
@@ -31,17 +36,27 @@ Work Queue Options:
 
 	-d <level>      Sets the debug flag for Work Queue. For all debugging output, try 'all' (default: off).
 
+	-cores <int>    Specify task cores needs.
+
+	-memory <int>      Specify task memory needs in MB.
+
+	-disk <int>     Specify task disk needs in MB.
+
 	-help           Print this usage string.
 ";
 
 #---Process options on the command line
 my %OPT;
 try{
-	GetOptions("port=i" => \$OPT{port},
+	GetOptions("reads=i" => \$OPT{reads},
+               "port=i" => \$OPT{port},
 			   "fa=i" => \$OPT{fast_abort},
 			   "N=s" => \$OPT{project},
 			   "stats=s" => \$OPT{stats},
 			   "d=s" => \$OPT{debug},
+			   "cores=i" => \$OPT{cores},
+			   "memory=i" => \$OPT{memory},
+			   "disk=i" => \$OPT{disk},
 			   "help|?" => sub {print $usage; exit(0)}
 	);
 } catch Error::Simple with{
@@ -60,7 +75,7 @@ main();
 #------------------------------- FUNCTION DEFINITIONS-------------------------------------
 sub setup_workqueue {
 	if(defined($OPT{"debug"})){
-		work_queue::cctools_debug_flags_set($OPT{"debug"});
+		Work_Queue::cctools_debug_flags_set($OPT{"debug"});
 		print localtime()." Work Queue debug flags set.\n";
 	}
 
@@ -68,9 +83,11 @@ sub setup_workqueue {
 	if(defined($OPT{"port"})) {
 		$port = $OPT{"port"};
 	}
-	my $wq = work_queue::work_queue_create($port);
+
+	# Create port
+	my  $wq = Work_Queue->new($port);
 	if(defined($wq)) {
-		$port = work_queue_port($wq);
+		$port = $wq->port();
 		print localtime()." Work Queue listening on port $port.\n";
 	} else {
 		print STDERR "Failed to create Work Queue on port $port.\n";
@@ -79,113 +96,140 @@ sub setup_workqueue {
 
 	if(defined($OPT{"fast_abort"})) {
 		my $multiplier = $OPT{"fast_abort"};
-		my $fa = work_queue::work_queue_activate_fast_abort($wq,$multiplier);
+		my $fa = $wq->activate_fast_abort_category($category_name, $multiplier);
 		print localtime()." Work Queue fast abort set to $multiplier.\n";
 	}
 
 	if(defined($OPT{"project"})) {
-		work_queue::work_queue_specify_name($wq, $OPT{"project"});
-		print localtime()." Work Queue project name set to $OPT{\"project\"}.\n";
+		$wq->specify_name($OPT{"project"});
+		print localtime()." Work Queue project name set to ".$OPT{"project"}."\n";
 	}
 
 	if(defined($OPT{"stats"})) {
-		work_queue::work_queue_specify_log($wq, $OPT{"stats"});
-		print localtime()." Work Queue stats file set to $OPT{\"stats\"}.\n";
+		$wq->specify_log($OPT{"stats"});
+		print localtime()." Work Queue stats file set to ".$OPT{"stats"}."\n";
+	}
+
+	if(defined($OPT{"reads"})) {
+		$num_reads = $OPT{"reads"};
+	}
+
+	if(defined($OPT{"cores"})) {
+		$wq->specify_category_max_resources($category_name, { 'cores' => $OPT{"cores"} });
+	}
+
+	if(defined($OPT{"memory"})) {
+		$wq->specify_category_max_resources($category_name, { 'memory' => $OPT{"memory"} });
+	}
+
+	if(defined($OPT{"disk"})) {
+		$wq->specify_category_max_resources($category_name, { 'disk' => $OPT{"disk"} });
 	}
 
 	return $wq;
 }
 
+# Partition data file
 sub split_query {
 	my($query_file) = @_;
 
 	my $read_count = 0;
-	open(infile, $query_file);
+	open(my $infile, $query_file);
 
-	my $num_outputs = 0;
-	open(outfile,">$query_file.$num_outputs");
+	my $num_outputs = 1;
+	open(my $outfile,">$query_file.$num_outputs");
 
 	my $line_count=0;
 
-	while (my $line = <infile>) {
+	while (my $line = <$infile>) {
 		chomp $line;
 
 		#a new sequence begins with '@'
 		if ($line =~ /^[@]/ and $line_count % 4 ==0){
 			if ($read_count == $num_reads){
-				close(outfile);
+				close($outfile);
 				$num_outputs++;
 				$read_count = 0;
-				open(outfile, ">$query_file.$num_outputs");
+				open($outfile, ">$query_file.$num_outputs");
 			} else {
 				$read_count++;
 			}
 		}
 
-		print outfile $line;
-		print outfile "\n";
+		print $outfile $line;
+		print $outfile "\n";
 
 		$line_count++;
 	}
 
-	close(infile);
+	close($outfile);
+	close($infile);
 
 	print localtime(). " Number of splits of $query_file is $num_outputs.\n";
-	return $num_outputs-1;
+	return $num_outputs;
 }
 
+# Create and submit tasks
 sub partition_tasks {
 	my($wq, $ref_file, $query_file) = @_;
 
 	my $num_splits = split_query($query_file);
 
-	for(my $i = 0; $i < $num_splits; $i++) {
+	for(my $i = 1; $i <= $num_splits; $i++) {
 		my $task_query_file = $query_file. ".$i";
 		my $task_outfile = $task_query_file. ".sam";
+
 		my $task_command = "./bwa mem $ref_file $task_query_file > $task_outfile";
-		my $task = work_queue_task_create($task_command);
+		my $task = Work_Queue::Task->new($task_command); 
 
-		work_queue_task_specify_file($task, "bwa", "bwa", $WORK_QUEUE_INPUT, $WORK_QUEUE_CACHE);
+		$task->specify_input_file("bwa"); 
+		$task->specify_input_file(local_name => $task_query_file, cache => $Work_Queue::WORK_QUEUE_NOCACHE); 
 
-		#add the ref file indexes using two for loops
+		#add the ref file indexes
 		foreach my $ending ('', '.amb', '.ann', '.bwt', '.pac', '.sa') {
-			my $task_ref_file = $ref_file . $ending ;
-			work_queue_task_specify_file($task, $task_ref_file, $task_ref_file, $WORK_QUEUE_INPUT, $WORK_QUEUE_CACHE);
-		}
+			$task->specify_input_file($ref_file . $ending);
+		}	
+		$task->specify_tag($i); 
 
-		work_queue_task_specify_file($task, $task_query_file, $task_query_file, $WORK_QUEUE_INPUT, $WORK_QUEUE_NOCACHE);
-		work_queue_task_specify_file($task, $task_outfile, $task_outfile, $WORK_QUEUE_OUTPUT, $WORK_QUEUE_NOCACHE);
-
-		my $taskid = work_queue_submit($wq, $task);
-		print localtime(). " Submitted task (id# $task->{taskid}): $task->{command_line}\n";
+		$task->specify_output_file(local_name => $task_outfile, cache => $Work_Queue::WORK_QUEUE_NOCACHE); 
+	
+		
+		$task->specify_category($category_name);
+	
+		my $taskid = $wq->submit($task);
+		print localtime()." Submitted task (id# ".$task->tag."): ".$task->command."\n";
 	}
 
 	return $num_splits;
 }
 
+
+# Wait on tasks
 sub retrieve_tasks {
-	my ($wq, $num_tasks) = @_;
+	my ($wq, $num_tasks, $query_file) = @_;
 
 	my $retrieved_tasks = 0;
 
 	print localtime(). " Waiting for $num_tasks tasks to complete...\n";
 	while ($retrieved_tasks < $num_tasks) {
-		my $t = work_queue_wait($wq, 5);
+		my $t = $wq->wait(5);
 
-		if(defined($t)) {
-			print localtime(). " Task (id# $t->{taskid}) complete: $t->{command_line} (return code $t->{return_status})\n";
-			if($t->{return_status} != 0) {
-				print localtime(). " Task (id# $t->{taskid}) failed\n";
+		if($t) {
+			print localtime(). " Task (id# ".$t->tag.") complete: ".$t->command." (return code ".$t->return_status.")\n";
+			if($t->return_status != 0) {
+				print localtime(). " Task (id# $t->tag) failed\n";
 			}
 
-			my $task_output = $t->{output};
-			open (task_outfile, '>>task_outputs.txt');
-			print task_outfile "$task_output\n";
-			print task_outfile "=====================================\n\n";
-			close (task_outfile);
+			my $task_output = $t->output;
+			open (my $task_outfile, '>>task_outputs.txt');
+			print $task_outfile "$task_output\n";
+			print $task_outfile "=====================================\n\n";
+			close ($task_outfile);
+			unlink($query_file.".".$t->tag);
 
-			work_queue_task_delete($t);
 			$retrieved_tasks++;
+			print localtime(). " Retrieved $retrieved_tasks tasks.\n";
+		} else {
 			print localtime(). " Retrieved $retrieved_tasks tasks.\n";
 		}
 	}
@@ -194,36 +238,27 @@ sub retrieve_tasks {
 sub merge_tasks {
 	my($query_file, $num_splits) = @_;
 
-	open(sam_outfile,">$query_file.sam");
-	open(seq_outfile,">$query_file.seq");
+	open(my $sam_outfile,">$query_file.sam");
+	open(my $seq_outfile,">$query_file.seq");
 
-	for(my $i = 0; $i < $num_splits; $i++) {
+	for(my $i = 1; $i <= $num_splits; $i++) {
 		my $task_outfile = $query_file. ".$i" . ".sam";
-		open(outfh,$task_outfile);
-		while(my $line = <outfh>)  {
+		open(my $outfh,$task_outfile);
+		while(my $line = <$outfh>)  {
 			$line =~ s/^\s+//;
-			$first_char = substr($line, 0, 1);
-			if($first_char == '@') {
-				print sam_outfile $line;
+			my $first_char = substr($line, 0, 1);
+			if($first_char eq '@') {
+				print $sam_outfile $line;
 			} else {
-				print seq_outfile $line;
+				print $seq_outfile $line;
 			}
 		}
-		close(outfh);
+		close($outfh);
+		unlink($task_outfile);
 	}
 
-	close(seq_outfile);
-
-	#open(seq_outfile, "$query_file.seq");
-	#while(my $line = <seq_outfile>) {
-	#	print sam_outfile $line;
-	#}
-	close(sam_outfile);
-}
-
-sub delete_workqueue {
-	my($wq) = @_;
-	work_queue_delete($wq);
+	close($seq_outfile);
+	close($sam_outfile);
 }
 
 sub main {
@@ -233,10 +268,8 @@ sub main {
 	my $wq = setup_workqueue();
 
 	my $num_tasks = partition_tasks($wq, $ref_file, $query_file);
-	retrieve_tasks($wq, $num_tasks);
+	retrieve_tasks($wq, $num_tasks, $query_file);
 	merge_tasks($query_file, $num_tasks);
-
-	delete_workqueue($wq);
 
 	exit 0;
 }
