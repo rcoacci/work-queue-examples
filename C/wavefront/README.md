@@ -1,5 +1,5 @@
 
-<img align=center src=images/wavefront_large.gif width=256></img>
+<img align=center src=images/wavefront_large.gif width=512></img>
 
 
 Wavefront User's Manual
