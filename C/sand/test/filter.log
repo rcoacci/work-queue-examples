@@ -1,0 +1,261 @@
+2019/07/03 11:06:36.88 sand_filter_master[8206] debug: sand_filter_master version 8.0.0 DEVELOPMENT (released 2019-06-04 10:48:53 -0400)
+2019/07/03 11:06:36.88 sand_filter_master[8206] debug: Built by nhazekam@disc24.crc.nd.edu on 2019-06-04 10:48:53 -0400
+2019/07/03 11:06:36.88 sand_filter_master[8206] debug: System: Linux disc24.crc.nd.edu 3.10.0-957.12.2.el7.x86_64 #1 SMP Fri Apr 19 21:09:07 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+2019/07/03 11:06:36.88 sand_filter_master[8206] debug: Configuration: --prefix /afs/crc.nd.edu/user/n/nhazekam/cctools/
+2019/07/03 11:06:36.91 sand_filter_master[8206] tcp: listening on port 1024
+2019/07/03 11:06:36.91 sand_filter_master[8206] wq: Using default fast abort multiplier for 'default'.
+2019/07/03 11:06:36.91 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:36.91 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:36.91 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:36.91 sand_filter_master[8206] wq: workers status -- total: 0, active: 0, available: 0.
+2019/07/03 11:06:36.91 sand_filter_master[8206] dns: looking up name disc24.crc.nd.edu
+2019/07/03 11:06:36.92 sand_filter_master[8206] dns: disc24.crc.nd.edu is 10.32.74.186
+2019/07/03 11:06:36.92 sand_filter_master[8206] dns: looking up addr 10.32.74.186
+2019/07/03 11:06:36.92 sand_filter_master[8206] dns: 10.32.74.186 is disc24.crc.nd.edu
+2019/07/03 11:06:36.92 sand_filter_master[8206] dns: finding my hostname: uname = disc24.crc.nd.edu, address = 10.32.74.186, hostname = disc24.crc.nd.edu
+2019/07/03 11:06:36.92 sand_filter_master[8206] wq: Master advertising as disc24.crc.nd.edu:1024
+2019/07/03 11:06:36.92 sand_filter_master[8206] wq: Enabling fast abort multiplier for 'default': 10.000
+2019/07/03 11:06:36.92 sand_filter_master[8206] debug: rectangle size: 100
+2019/07/03 11:06:36.95 sand_filter_master[8206] debug: Rectangle 0 has been created.
+2019/07/03 11:06:36.96 sand_filter_master[8206] debug: Rectangle 1 has been created.
+2019/07/03 11:06:36.96 sand_filter_master[8206] debug: Sequence loaded.
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: Task 1 state change: UNKNOWN (0) to WAITING (1)
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: workers status -- total: 0, active: 0, available: 0.
+2019/07/03 11:06:36.96 sand_filter_master[8206] debug: Submitted task for rectangle (0, 0)
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: Task 2 state change: UNKNOWN (0) to WAITING (1)
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: workers status -- total: 0, active: 0, available: 0.
+2019/07/03 11:06:36.96 sand_filter_master[8206] debug: Submitted task for rectangle (0, 1)
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: Task 3 state change: UNKNOWN (0) to WAITING (1)
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:36.96 sand_filter_master[8206] wq: workers status -- total: 0, active: 0, available: 0.
+2019/07/03 11:06:36.96 sand_filter_master[8206] debug: Submitted task for rectangle (1, 1)
+2019/07/03 11:06:37.96 sand_filter_master[8206] tcp: got connection from 127.0.0.1 port 57798
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: worker 127.0.0.1:57798 connected
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: 1 workers are connected in total now
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from unknown (127.0.0.1:57798): workqueue 8 disc24.crc.nd.edu Linux x86_64 8.0.0
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) running CCTools version 8.0.0 on Linux (operating system) with architecture x86_64 is ready
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info worker-id worker-03f39ec834180dded7e492be908456ed
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): alive
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): resource workers 1 1 1
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): resource disk 150 150 150
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): resource memory 150 150 150
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): resource gpus 0 0 0
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): resource cores 1 1 1
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): resource tag 0
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) needs file /afs/crc.nd.edu/user/n/nhazekam/cctools/bin/sand_filter_kernel bytes 0:199464 as 'file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel'
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) using conservative default average transfer rate of 1.00 MB/s
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) will try up to 10 seconds to transfer this 0.20 MB file.
+2019/07/03 11:06:37.96 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): put file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel 199464 0755 1
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) received 0.20 MB in 0.01s (17.45s MB/s) average 17.45s MB/s
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) needs file random.cand.filter.tmp/rect000.cfa bytes 0:3884 as 'file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa'
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) using conservative default average transfer rate of 1.00 MB/s
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) will try up to 10 seconds to transfer this 0.00 MB file.
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): put file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa 3884 0644 1
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) received 0.00 MB in 0.00s (9.34s MB/s) average 17.17s MB/s
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): task 1
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): cmd 50
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: ./sand_filter_kernel -k 22 -w 22 -s d rect000.cfa
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): category default
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): cores 1
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): memory 150
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): disk 150
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): gpus 0
+2019/07/03 11:06:37.97 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): end_time 18446744073709551615
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): wall_time 18446744073709551615
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): infile file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel sand_filter_kernel 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): infile file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa rect000.cfa 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): end
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) busy on './sand_filter_kernel -k 22 -w 22 -s d rect000.cfa '
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: Task 1 state change: WAITING (1) to RUNNING (2)
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info end_of_resource_update 0
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info tasks_running 0
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info tasks_running 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): available_results
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): send_results -1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: Reading result(s) from disc24.crc.nd.edu (127.0.0.1:57798)
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): result 0 0 10521 6760 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: Receiving stdout of task 1 (size: 10521 bytes) from 127.0.0.1:57798 (disc24.crc.nd.edu) ...
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) using conservative default average transfer rate of 1.00 MB/s
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) will try up to 10 seconds to transfer this 0.01 MB file.
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: Retrieved 10521 bytes from disc24.crc.nd.edu (127.0.0.1:57798)
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: Task 1 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 0.
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info tasks_running 0
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): end
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): kill 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: Task 1 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 0.
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.exec_time: 10
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.transfer_time: 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.master_time: 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) done in 0.02s total tasks 1 average 0.01s
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: Task 1 state change: RETRIEVED (4) to DONE (5)
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity: 1562166397 6760 14077 448 10 1 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.exec_time: 6760
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.transfer_time: 14077
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.master_time: 448
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity: 1562166397 6760 14077 448 10 1 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.exec_time: 6760
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.transfer_time: 14077
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: capacity.master_time: 448
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:37.98 sand_filter_master[8206] debug: task complete: 000-000: ./sand_filter_kernel -k 22 -w 22 -s d rect000.cfa
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) needs file random.cand.filter.tmp/rect001.cfa bytes 0:4089 as 'file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa'
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) using conservative default average transfer rate of 1.00 MB/s
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) will try up to 10 seconds to transfer this 0.00 MB file.
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): put file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa 4089 0644 1
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) received 0.00 MB in 0.00s (10.33s MB/s) average 16.94s MB/s
+2019/07/03 11:06:37.98 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): task 2
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): cmd 61
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: ./sand_filter_kernel -k 22 -w 22 -s d rect001.cfa rect000.cfa
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): category default
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): cores 1
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): memory 150
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): disk 150
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): gpus 0
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): end_time 18446744073709551615
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): wall_time 18446744073709551615
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): infile file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel sand_filter_kernel 1
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): infile file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa rect001.cfa 1
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): infile file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa rect000.cfa 1
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): end
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) busy on './sand_filter_kernel -k 22 -w 22 -s d rect001.cfa rect000.cfa'
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: Task 2 state change: WAITING (1) to RUNNING (2)
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: capacity: 1562166397 6760 14077 448 10 1 1
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: capacity.exec_time: 6760
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: capacity.transfer_time: 14077
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: capacity.master_time: 448
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info tasks_running 1
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): available_results
+2019/07/03 11:06:37.99 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): send_results -1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: Reading result(s) from disc24.crc.nd.edu (127.0.0.1:57798)
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): result 0 0 24301 8257 2
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: Receiving stdout of task 2 (size: 24301 bytes) from 127.0.0.1:57798 (disc24.crc.nd.edu) ...
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) using conservative default average transfer rate of 1.00 MB/s
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) will try up to 10 seconds to transfer this 0.02 MB file.
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: Retrieved 24301 bytes from disc24.crc.nd.edu (127.0.0.1:57798)
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: Task 2 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity: 1562166397 6760 14077 448 10 1 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.exec_time: 6760
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.transfer_time: 14077
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.master_time: 448
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 0.
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info tasks_running 0
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): end
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): kill 2
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: Task 2 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity: 1562166397 6760 14077 448 10 2 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.exec_time: 6760
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.transfer_time: 14077
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.master_time: 448
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 0.
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity: 1562166397 6760 14077 448 10 2 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.exec_time: 6760
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.transfer_time: 14077
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.master_time: 448
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) done in 0.01s total tasks 2 average 0.01s
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: Task 2 state change: RETRIEVED (4) to DONE (5)
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity: 1562166397 8257 2624 470 10 2 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.exec_time: 15017
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.transfer_time: 16701
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.master_time: 918
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity: 1562166397 8257 2624 470 10 2 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.exec_time: 15017
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.transfer_time: 16701
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.master_time: 918
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:38.00 sand_filter_master[8206] debug: task complete: 000-001: ./sand_filter_kernel -k 22 -w 22 -s d rect001.cfa rect000.cfa
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): task 3
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): cmd 50
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: ./sand_filter_kernel -k 22 -w 22 -s d rect001.cfa
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): category default
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): cores 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): memory 150
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): disk 150
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): gpus 0
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): end_time 18446744073709551615
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): wall_time 18446744073709551615
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): infile file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel sand_filter_kernel 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): infile file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa rect001.cfa 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): end
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) busy on './sand_filter_kernel -k 22 -w 22 -s d rect001.cfa '
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: Task 3 state change: WAITING (1) to RUNNING (2)
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity: 1562166398 8257 2624 470 10 2 1
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.exec_time: 15017
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.transfer_time: 16701
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: capacity.master_time: 918
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:38.00 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info tasks_running 1
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): available_results
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): send_results -1
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: Reading result(s) from disc24.crc.nd.edu (127.0.0.1:57798)
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): result 0 0 12632 7268 3
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: Receiving stdout of task 3 (size: 12632 bytes) from 127.0.0.1:57798 (disc24.crc.nd.edu) ...
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) using conservative default average transfer rate of 1.00 MB/s
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) will try up to 10 seconds to transfer this 0.01 MB file.
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: Retrieved 12632 bytes from disc24.crc.nd.edu (127.0.0.1:57798)
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: Task 3 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity: 1562166398 8257 2624 470 10 2 1
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.exec_time: 15017
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.transfer_time: 16701
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.master_time: 918
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 0.
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): info tasks_running 0
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: rx from disc24.crc.nd.edu (127.0.0.1:57798): end
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): kill 3
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: Task 3 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity: 1562166398 8257 2624 470 10 3 1
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.exec_time: 15017
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.transfer_time: 16701
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.master_time: 918
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 0.
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity: 1562166398 8257 2624 470 10 3 1
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.exec_time: 15017
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.transfer_time: 16701
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.master_time: 918
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: disc24.crc.nd.edu (127.0.0.1:57798) done in 0.01s total tasks 3 average 0.01s
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: Task 3 state change: RETRIEVED (4) to DONE (5)
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity: 1562166398 7268 1985 440 10 3 1
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.exec_time: 22285
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.transfer_time: 18686
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.master_time: 1358
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity: 1562166398 7268 1985 440 10 3 1
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.exec_time: 22285
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.transfer_time: 18686
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: capacity.master_time: 1358
+2019/07/03 11:06:38.01 sand_filter_master[8206] wq: workers status -- total: 1, active: 1, available: 1.
+2019/07/03 11:06:38.01 sand_filter_master[8206] debug: task complete: 001-001: ./sand_filter_kernel -k 22 -w 22 -s d rect001.cfa
+2019/07/03 11:06:38.02 sand_filter_master[8206] wq: tx to disc24.crc.nd.edu (127.0.0.1:57798): release
+2019/07/03 11:06:38.02 sand_filter_master[8206] wq: worker disc24.crc.nd.edu (127.0.0.1:57798) removed
+2019/07/03 11:06:38.02 sand_filter_master[8206] tcp: disconnected from 127.0.0.1 port 57798
+2019/07/03 11:06:38.02 sand_filter_master[8206] wq: 0 workers are connected in total now
+2019/07/03 11:06:38.02 sand_filter_master[8206] wq: capacity: 1562166398 7268 1985 440 10 3 0
+2019/07/03 11:06:38.02 sand_filter_master[8206] wq: capacity.exec_time: 22285
+2019/07/03 11:06:38.02 sand_filter_master[8206] wq: capacity.transfer_time: 18686
+2019/07/03 11:06:38.02 sand_filter_master[8206] wq: capacity.master_time: 1358
+2019/07/03 11:06:38.02 sand_filter_master[8206] wq: workers status -- total: 0, active: 0, available: 0.
