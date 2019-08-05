@@ -1,5 +1,5 @@
 
-<img align=center src=wavefront_large.gif width=256></img>
+<img align=center src=images/wavefront_large.gif width=256></img>
 
 
 Wavefront User's Manual
@@ -9,7 +9,7 @@ Wavefront User's Manual
 <tr>
 
 <td>
-<a href=wavefront_large.gif><img src=images/wavefront_small.gif align=right border=0></a>
+<a href=images/wavefront_large.gif><img src=images/wavefront_small.gif align=right border=0></a>
 </td>
 
 <td>
@@ -28,7 +28,7 @@ handling load balancing, data movement, fault tolerance, and so on.
 
 To use Wavefront, install the <a
     href="http://ccl.cse.nd.edu/software/downloadfiles.shtml">Cooperative Computing Tools</a> and
-run the program named `<b>wavefront_master</b>`. You need to set up an
+run the program named `wavefront_master`. You need to set up an
 input file with initial boundary values of R, and provide a function that
 computes a new cell from adjacent cells. Each line of the input file has the format:
 
