@@ -8,8 +8,9 @@ See the file COPYING for details.
 #include <stdlib.h>
 
 #include "compressed_sequence.h"
-#include "full_io.h"
 #include "debug.h"
+#include "full_io.h"
+#include "xxmalloc.h"
 
 static int get_num_bytes(int num_bases);
 static int get_malloc_bytes(int num_bases);
@@ -32,12 +33,12 @@ you see get_mallc_bytes used to round it up.
 struct cseq * cseq_create( const char *name, int num_bases, short *mers, const char *metadata)
 {
 	struct cseq *c = malloc(sizeof(*c));
-	c->name = strdup(name);
+	c->name = xxstrdup(name);
 	c->num_bases = num_bases;
 	int malloc_bytes = get_malloc_bytes(c->num_bases);
 	c->data = malloc(malloc_bytes);
 	memcpy(c->data,mers,malloc_bytes);
-	c->metadata = strdup(metadata);
+	c->metadata = xxstrdup(metadata);
 	return c;
 }
 
@@ -56,8 +57,8 @@ struct cseq * seq_compress( struct seq *s )
 	c->num_bases = s->num_bases;
 	int malloc_bytes = get_malloc_bytes(s->num_bases);
 	c->data = malloc(malloc_bytes);
-	c->name = strdup(s->name);
-	c->metadata = strdup(s->metadata);
+	c->name = xxstrdup(s->name);
+	c->metadata = xxstrdup(s->metadata);
 
 	memset(c->data,0,malloc_bytes);
 
@@ -129,8 +130,8 @@ struct seq * cseq_uncompress( struct cseq *c )
 {
 	struct seq *s = malloc(sizeof(*s));
 
-	s->name = strdup(c->name);
-	s->metadata = strdup(c->metadata);
+	s->name = xxstrdup(c->name);
+	s->metadata = xxstrdup(c->metadata);
 	s->data = malloc(c->num_bases+1);
 	s->num_bases = c->num_bases;
 

@@ -19,8 +19,10 @@ See the file COPYING for details.
 #include "overlap.h"
 #include "matrix.h"
 
-#include "macros.h"
 #include "debug.h"
+#include "getopt.h"
+#include "macros.h"
+#include "xxmalloc.h"
 
 static int min_align = 0;
 static double min_qual = 1.0;
@@ -118,7 +120,7 @@ int main(int argc, char ** argv)
 		int dir = 0;
 		int start1 = 0;
 		int start2 = 0;
-		char* tmp = strdup(s2->metadata);
+		char* tmp = xxstrdup(s2->metadata);
 		int metadata_valid = 0;
 
 		char* token = strtok(tmp, "	 ");

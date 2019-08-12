@@ -104,7 +104,7 @@ void print_8mer(unsigned short mer);
 void set_k_mask();
 mer_t make_mer(const char * str);
 
-void add_candidate(int seq, int cand, char dir, mer_t mer, short loc1, short loc2);
+void add_candidate(int seq, int cand, char dir, short loc1, short loc2);
 void free_cand_list_element(cand_list_element * cle);
 
 void find_all_kmers(int seq_num);
@@ -344,7 +344,7 @@ void mer_generate_cands(mer_hash_element * mhe)
 		curr = head->next;
 		while (curr)
 		{
-			add_candidate(head->seq_num, curr->seq_num, head->dir * curr->dir, mhe->mer, head->loc, curr->loc);
+			add_candidate(head->seq_num, curr->seq_num, head->dir * curr->dir, head->loc, curr->loc);
 			curr = curr->next;
 		}
 		head = head->next;
@@ -993,7 +993,7 @@ int should_compare_cands(int c1, int c2)
 	return 1;
 }
 
-void add_candidate(int seq, int cand, char dir, mer_t min, short loc1, short loc2)
+void add_candidate(int seq, int cand, char dir, short loc1, short loc2)
 {
 	// Unless this is a diagonal, ones from the same block have already been compared.
 	// If I don't do this step, then ones from the same block on the same axis

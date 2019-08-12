@@ -1,5 +1,4 @@
 include ../config.mk
-include ../rules.mk
 
 LOCAL_CCFLAGS = -O3
 
@@ -11,6 +10,23 @@ SCRIPTS = sand_runCA_5.4 sand_runCA_6.1 sand_runCA_7.0
 SOURCES = compressed_sequence.c sequence_filter.c sequence.c matrix.c overlap.c align.c
 HEADERS_PUBLIC = align.h matrix.h
 TARGETS = $(PROGRAMS) $(LIBRARIES)
+
+CC=@echo COMPILE $@;gcc
+
+%.o: %.c
+	$(CC) -o $@ -c $(CCFLAGS) $(LOCAL_CCFLAGS) $<
+
+%.a:
+	$(AR) rv $@ $^
+	ranlib $@
+
+%: %.o
+	$(LD) -o $@ $(LDFLAGS) $^ $(EXTERNAL_LINKAGE)
+
+# Cancel Make defined implicit rule:
+%: %.c
+
+.PRECIOUS: %.o
 
 all: $(TARGETS)
 

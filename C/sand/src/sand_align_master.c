@@ -343,7 +343,7 @@ int main(int argc, char *argv[])
 			max_pairs_per_task = atoi(optarg);
 			break;
 		case 'e':
-			align_prog_args = strdup(optarg);
+			align_prog_args = xxstrdup(optarg);
 			break;
 		case 'd':
 			debug_flags_set(optarg);

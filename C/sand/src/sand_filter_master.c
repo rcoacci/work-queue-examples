@@ -316,7 +316,7 @@ static void task_complete(struct work_queue_task *t)
 	if(t->result == 0) {
 		debug(D_DEBUG, "task complete: %s: %s", t->tag, t->command_line);
 		if(strlen(t->output) > 0) {
-			char *out = strdup(t->output);
+			char *out = xxstrdup(t->output);
 			char *cand1 = malloc(sizeof(char) * 500);
 			char *cand2 = malloc(sizeof(char) * 500);
 			int dir, start1, start2;

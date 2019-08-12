@@ -1,5 +1,4 @@
 include config.mk
-include rules.mk
 
 SAND_PACKAGES=src
 

@@ -12,6 +12,7 @@ See the file COPYING for details.
 #include "stringtools.h"
 #include "debug.h"
 #include "full_io.h"
+#include "xxmalloc.h"
 
 #include "sequence.h"
 
@@ -19,9 +20,9 @@ struct seq * seq_create( const char *name, const char *data, const char *metadat
 {
 	struct seq *s = malloc(sizeof(*s));
 
-	s->name = strdup(name);
-	s->data = strdup(data);
-	s->metadata = strdup(metadata);
+	s->name = xxstrdup(name);
+	s->data = xxstrdup(data);
+	s->metadata = xxstrdup(metadata);
 	s->num_bases = strlen(data);
 
 	return s;

@@ -13,6 +13,7 @@ See the file COPYING for details.
 #include "path.h"
 #include "stringtools.h"
 #include "text_list.h"
+#include "xxmalloc.h"
 
 #include "matrix.h"
 #include "align.h"
@@ -68,8 +69,8 @@ and if the quality is sufficiently good, displays the alignment.
 
 static void allpairs_compare_SWALIGN( const char *name1, const char *data1, int size1, const char *name2, const char *data2, int size2 )
 {
-	char *stra = strdup(data1);
-	char *strb = strdup(data2);
+	char *stra = xxstrdup(data1);
+	char *strb = xxstrdup(data2);
 
 	stra[size1-1] = 0;
 	strb[size2-1] = 0;

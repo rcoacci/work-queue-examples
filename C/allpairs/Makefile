@@ -1,5 +1,4 @@
 include config.mk
-include rules.mk
 
 ALLPAIRS_PACKAGES=src
 
