@@ -1,8 +1,35 @@
-#!/bin/sh
+The input rows and columns are a sequence from 0 to 9. The function that
+wavefront applies is simply the sum of xfile, yfile and dfile.
 
-. ../../dttools/test/test_runner_common.sh
+SUM TEST
+========
 
-PATH=../src:../../work_queue/src:$PATH
+Prepare
+-------
+
+	rm -f $TEST_INPUT
+	rm -f R.*.*
+	./gen_ints_wf.sh $TEST_INPUT 10
+
+Run
+---
+
+	../src/wavefront ./sum_wf.sh 9 9
+
+	value=`cat R.9.9 | sed -n 's/[[:blank:]]*\([[:digit:]]*\).*/\1/p'`
+	echo "Computed value is $value"
+
+Expected answer : 1854882
+
+Clean
+-----
+
+	rm -f $TEST_INPUT
+	rm -f R.*.*
+
+
+Master Test
+===========
 
 TEST_INPUT=test.wmaster.input
 TEST_OUTPUT=test.wmaster.output
@@ -11,25 +38,22 @@ MASTER_PID=master.pid
 MASTER_LOG=master.log
 MASTER_OUTPUT=master.output
 
-cleanfiles()
-{
+Clean
+-----
+
 	rm -f $TEST_INPUT
 	rm -f $TEST_OUTPUT
 	rm -f $PORT_FILE
 	rm -f $MASTER_PID
 	rm -f $MASTER_LOG
 	rm -f $MASTER_OUTPUT
-}
 
-prepare()
-{
-	cleanfiles
+Prepare
+-------
 	./gen_ints_wfm.sh $TEST_INPUT 10
-}
 
-run()
-{
-	answer=1854882
+Run
+---
 
 	echo "starting wavefront master"
 	wavefront_master -d all -o $MASTER_LOG -Z $PORT_FILE ./sum_wfm.sh 10 10 $TEST_INPUT $TEST_OUTPUT > $MASTER_OUTPUT &
@@ -45,33 +69,18 @@ run()
 	echo "extracting result"
 	value=`sed -n 's/^9 9 \([[:digit:]]*\)/\1/p' $TEST_OUTPUT`
 
-	echo "computed value is $value"
+	echo "Computed value is $value"
+	
 
-	if [ X$value = X ]
-	then
-		echo "result is missing"
-		exit 1
-	elif [ $value = $answer ]
-	then
-		echo "result is correct"
-		exit 0
-	else
-		echo "result is incorrect"
-		exit 1
-	fi
-}
+Expected answer : 1854882
 
-clean()
-{
+Clean
+-----
+
 	if [ -f $MASTER_PID ]
 	then
 		kill -9 `cat $MASTER_PID`
 	fi
 
 	cleanfiles
-	exit 0
-}
 
-dispatch "$@"
-
-# vim: set noexpandtab tabstop=4:
