@@ -1,5 +1,4 @@
 include config.mk
-include rules.mk
 
 WAVEFRONT_PACKAGES=src
 
