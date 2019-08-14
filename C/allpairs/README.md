@@ -185,18 +185,19 @@ properly divisible by the second one.
 
 ### Prepare
 
-	./gen_ints.sh $TEST_INPUT 20
+    cd examples/composite
 
     export TEST_INPUT=integer.list
     export TEST_OUTPUT_STEP=composite_step.output
     export TEST_OUTPUT=composite.output
     export WORKER_LOG=worker.log
 
+	../gen_ints.sh $TEST_INPUT 20
 
 ### Run
 Run the master program with `divisible.sh` used to compare each pair.
 
-	allpairs_master -x 1 -y 1 --output-file $TEST_OUTPUT_STEP -p 9123 $TEST_INPUT $TEST_INPUT ./divisible.sh -d all
+	allpairs_master -p 9123 -x 1 -y 1 --output-file $TEST_OUTPUT_STEP $TEST_INPUT $TEST_INPUT ./divisible.sh
 
 In a separate shell (or the background) we run a worker to execute the tasks.
 
@@ -210,6 +211,10 @@ Once the `allpairs_master` is completed we can check is the output correctly mat
 ### Clean
 
 	rm -rf $TEST_INPUT $TEST_OUTPUT_STEP $TEST_OUTPUT $WORKER_LOG
+    rm -rf [0-9]*
+
+    cd ../..
+
 
 Internal Function Example
 -------------------------
@@ -220,11 +225,13 @@ generated.
 
 ### Prepare
 
-	./gen_ints.sh $TEST_INPUT 20
+    cd examples/bitwise
 
-    export TEST_INPUT=integer.list
+    export TEST_INPUT=set.list
     export TEST_OUTPUT=composite.output
     export WORKER_LOG=worker.log
+
+	../gen_ints.sh $TEST_INPUT 20
 
 
 ### Run
@@ -252,6 +259,9 @@ generated.
 ### Clean
 
     rm -rf $TEST_INPUT $TEST_OUTPUT
+    rm -rf [0-9]*
+
+    cd ../..
 
 Using an Internal Function
 --------------------------
