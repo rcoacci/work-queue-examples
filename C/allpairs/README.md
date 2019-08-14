@@ -231,35 +231,19 @@ generated.
     export TEST_OUTPUT=composite.output
     export WORKER_LOG=worker.log
 
-	../gen_ints.sh $TEST_INPUT 20
-
-
 ### Run
+
+
 
 	allpairs_master -p 9123 -x 1 -y 1 --output-file $TEST_OUTPUT $TEST_INPUT $TEST_INPUT BITWISE
 
 	work_queue_worker --timeout 2 localhost 9123
 
-	cat "$TEST_INPUT" | awk -F"/" '{print $3}'
-	howmany() { echo $#;}
-	num_files=$(howmany $in_files)
-	for i in $in_files; do
-	  count=`awk '{print $1}' $TEST_OUTPUT | grep -c $i`
-	  if [ $num_files != $count ]
-	  then
-		exit 1
-	  fi
-	  count=`awk '{print $2}' $TEST_OUTPUT | grep -c $i`
-	  if [ $num_files != $count ]
-	  then
-		exit 1
-	  fi
-	done
+    ./test.sh
 
 ### Clean
 
-    rm -rf $TEST_INPUT $TEST_OUTPUT
-    rm -rf [0-9]*
+    rm -rf $TEST_OUTPUT
 
     cd ../..
 
@@ -273,8 +257,7 @@ as a simple function in C, you can embed that into the allpairs framework
 to achieve significant speedups.
 
 
-To accomplish this, <a href="http://ccl.cse.nd.edu/software/download.shtml">download</a>
-the CCTools source code, and build it.  Then, look for the file `allpairs/src/allpairs_compare.c`.
+To add a custom internal function look for the file `src/allpairs_compare.c`.
 At the top, you will see a function named `allpairs_compare_CUSTOM`, which accepts
 two memory objects as arguments.  Implement your comparison function, and then rebuild
 the code.  Test you code by running `allpairs_multicore` on a small set of data,
@@ -283,11 +266,9 @@ on a small set of data, then proceed to using `allpairs_master`.
 
 
 We have implemented several internal comparison functions as examples, including:
-<dir>
-<li> BITWISE - Counts the number of bytes different in each object.
-<li> SWALIGN - Performs a Smith-Waterman alignment on two genomic sequences.
-<li> IRIS - Performs a similarity comparison between two iris templates.
-</dir>
+- BITWISE - Counts the number of bytes different in each object.
+- SWALIGN - Performs a Smith-Waterman alignment on two genomic sequences.
+- IRIS - Performs a similarity comparison between two iris templates.
 
 Tuning Performance
 ------------------
@@ -301,17 +282,15 @@ available on your system, and then arrange the computation to maximize performan
 
 
 If you like, you can use the options to further tune how the problem is decomposed:
-<dir>
-<li> `-t` can be used to inform `allpairs_master` how long (in seconds)
+- `-t` can be used to inform `allpairs_master` how long (in seconds)
 it takes to perform each comparison.  If given, `allpairs_master` will not
 sample the execution, and will start the computation immediately.
-<li> `-x` and `-y` can be used to set the size of the sub-problem
+- `-x` and `-y` can be used to set the size of the sub-problem
 dispatched from `allpairs_master` to `allpairs_multicore`
-<li> `-c` controls the number of cores used by `allpairs_multicore`,
+- `-c` controls the number of cores used by `allpairs_multicore`,
 which is all available cores by default.
-<li> `-b` controls the block size of elements maintained in memory by `allpairs_multicore`,
+- `-b` controls the block size of elements maintained in memory by `allpairs_multicore`,
 which is 3/4 of memory by default.
-</dir>
 
 
 For More Information
