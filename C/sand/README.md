@@ -16,12 +16,38 @@ from clusters, clouds, grids, or just the idle machines you have in your office.
 SAND can be used as a drop-in replacement for the conventional overlapper in
 the Celera Assembler, or can be used as a standalone tool by advanced users.
 
-SAND is part of the <a
-href="http://ccl.cse.nd.edu/software">Cooperating Computing
-Tools</a>.  You can download the CCTools from <a
-href="http://ccl.cse.nd.edu/software/download">this web page</a>,
-follow the <a href="install.html">installation instructions</a>, and you
-are ready to go.
+Getting Started
+---------------
+
+If you have not done so already, please clone this examples repository like so:
+
+    git clone https://github.com/cooperative-computing-lab/work-queue-examples.git
+    cd ./C/sand
+
+To use SAND, first install the <a
+    href="http://ccl.cse.nd.edu/software/downloadfiles.shtml">Cooperative Computing Tools</a>.
+If you want to build from source:
+
+    git clone https://github.com/cooperative-computing-lab/cctools.git
+    cd ./cctools
+    ./configure --prefix ${PWD}
+    make clean
+    make install
+    export PATH=${PWD}/bin:${PATH}
+    cd ..
+
+
+This will build Work Queue and other required libraries needed by SAND.
+Next we need to build SAND, which requires knowing the location of
+CCTools and where SAND will be installed. This is specified in `config.mk`:
+
+    echo CCTOOLS_INSTALL_DIR=${PWD}/cctools/ > config.mk
+    echo SAND_INSTALL_DIR=${PWD}/ >> config.mk
+
+Once specified in `config.mk` we can now build the software:
+
+    make install
+    export PATH=${PWD}/bin:${PATH}
 
 Using SAND with the Celera Assembler
 ------------------------------------
@@ -32,13 +58,11 @@ Celera Assembler version 6.1, you can switch to SAND by using the `sand_runCA_6.
 Celera Assembler version 7.0, you can switch to SAND by using the `sand_runCA_7.0` script. We assume that you have
 installed SAND according to the instructions above and addeed it to your `PATH`.
 
-<ol>
-<li> Copy the script `sand_runCA_X.X` into the same directory where you have the normal `runCA` installed.
-<li> Set `ovlOverlapper=sand` to your `spec` file.
-<li> For Celera 7.0, add `sandAlignFlags=-e "-o ovl_new"` to your `spec` file. This tells the alignment program
+1. Copy the script `sand_runCA_X.X` into the same directory where you have the normal `runCA` installed.
+2. Set `ovlOverlapper=sand` to your `spec` file.
+3. For Celera 7.0, add `sandAlignFlags=-e "-o ovl_new"` to your `spec` file. This tells the alignment program
 to output new Celera 7.0 style overlaps.
-<li> Run `sand_runCA_X.X` just like you normally use `runCA`
-</ol>
+4. Run `sand_runCA_X.X` just like you normally use `runCA`
 
 You will see the assembly start as normal.  When the overlapping stage begins, you will see output like this:
 
@@ -60,7 +84,7 @@ specifying the hostname where the master runs and the port number it is listenin
 (This can be changed with the sandPort option in the CA spec file.)
 For example:
 
-    % work_queue_worker master.somewhere.edu 9123
+    work_queue_worker master.somewhere.edu 9123
 
 With one worker, you will see some change in the output, like this:
 
@@ -109,6 +133,57 @@ still be available, so you can either run another master with the
 same workers, remove them from the batch system, or wait for them to
 expire.  If you do nothing for 15 minutes, they will automatically exit.
 
+SAND Example
+------------
+
+The example included here produces OVL records describing the results
+of the overlapping step for a very small assembly.  The example is
+executed as a script (test_example.sh) that will generate a list of
+candidate pairs and then run a sample alignment on each pair in the
+list.  The resulting OVL records are compared against a correct key as
+verification.
+
+The following will explain how to run the example, and describe the
+common execution steps included in the example script.
+
+### Setup and Execution
+
+The example script is meant to be run in-place. Once the
+CCTools have been made, it can be executed simply as:
+./test_example.sh
+
+--The example script converts a small set of sequences into the
+  compressed fasta-like format used by the SAND modules.
+
+--The example script starts a worker running on localhost,
+  looking for a master on localhost port 9091. If that port is in use,
+  change the example to use a free port.
+
+--The example script next starts the filter_master process, which controls
+  the candidate selection workload execution. The master takes several
+  options (here 10 subsets to filter, port 9091, and binary data mode)
+  and two mandatory arguments: the sequence library, and an output
+  target candidate file. For more on options, run: filter_master -h
+
+--The worker from the candidate selection is forcibly killed, so the
+  example script starts another worker running on localhost,
+  looking for a master on localhost port 9091. If that port is in use,
+  again, change the example to use a free port.
+
+--The example script next starts the master process, which controls
+  the alignment workload execution. The master takes several options
+  (here 1 candidate per Work Queue task, and port 9091) and four
+  mandatory arguments: the serial alignment executable to run, the
+  candidate list, the sequence library, and an output target. For more
+  on options, run: sand_align -h
+
+--Once the master process has completed, the output is compared
+  against a correct version of the OVL results, and the example
+  script waits for the worker to time-out.
+
+--The created files are then deleted (with the option to keep the results)
+
+
 SAND in More Detail
 -------------------
 
@@ -119,16 +194,16 @@ To use the SAND modules, you must first generate repeats and compress the data. 
 
 To generate repeats from a FASTA file, use the `meryl` tool from the Celera Assembler:
 
-    % meryl -B -m 24 -C -L 100 -v -o small.meryl -s small.fa
-    % meryl -Dt -s small.meryl -n 100 &gt; small.repeats
+    meryl -B -m 24 -C -L 100 -v -o small.meryl -s small.fa
+    meryl -Dt -s small.meryl -n 100 &gt; small.repeats
 
 Then use `sand_compress_reads` to compress the sequence data into a compressed FASTA (.cfa) file:
 
-    % sand_compress_reads small.fa small.cfa
+    sand_compress_reads small.fa small.cfa
 
 The filtering step will read in the compressed sequence data (`small.cfa`) and quickly produce a list of candidate sequences (`small.cand`) for the following step to consider in detail.  Start the filtering step as follows:
 
-    % sand_filter_master -r small.repeats small.cfa small.cand
+    sand_filter_master -r small.repeats small.cfa small.cand
 
 While the filtering step runs, it will print some statistics to the
 console, showing the number of workers available, tasks running, and so forth:
@@ -146,7 +221,7 @@ The alignment step will take the list of candidates generated in the previous st
 the compressed sequences (`small.cfa`) and produce a listing of how and where the sequences
 overlap (`small.ovl`).  For example:
 
-    % sand_align_master sand_align_kernel -e "-q 0.04 -m 40" small.cand small.cfa small.ovl
+    sand_align_master sand_align_kernel -e "-q 0.04 -m 40" small.cand small.cfa small.ovl
 
 The options `-q 0.04 -m 40` passed to `sand_align_kernel` indicate a minimum alignment quality of 0.04 and a minimum alignment length of 40 bases.
 Again, a progress table will be printed to standard out:
@@ -169,31 +244,25 @@ file that can be fed into the final stages of your assembler to complete the con
 Tuning Suggestions
 ------------------
 
-<dir>
-<li> As a rule of thumb, a single task should take a minute or two.  If tasks are much longer than that, it becomes more difficult to measure progress and recover from failures.  If tasks are much shorter than that, the overhead of managing the tasks becomes excessive.  Use the `-n` parameter to increase or decrease the size of tasks.
-<li> When using banded alignment (the default), the `-q` match quality parameter has a significant effect on speed.  A higher quality threshhold will consider more alignments, but take longer and produce more output.
-<li>
-The columns of the output are as follows:
-<dir>
-<li> Total Time is the elapsed time the master has been running.
-<li> Workers Idle is the number of workers that are connected, but do not have a task to run.
-<li> Workers Busy is the number of workers that are currently running a task.
-<li> Tasks Submitted is the cumulative number of tasks created by the master.
-<li> Tasks Idle is the number of tasks waiting for a worker.
-<li> Tasks Running is the number of tasks currently running on a worker.
-<li> Tasks Done is the cumulative number of tasks completed.
-<li> Avg Time is the average time a task takes to run.  An average time of 60 seconds is a good goal.
-<li> K-Cand Loaded indicates the number of candidates loaded into memory (in thousands).
-<li> K-Seqs Loaded indicates the number of sequences loaded into memory (in thousands).
-<li> Speedup is the approximate speed of the distributed framework, relative to one processor.
-</dir>
-
-</dir>
+- As a rule of thumb, a single task should take a minute or two.  If tasks are much longer than that, it becomes more difficult to measure progress and recover from failures.  If tasks are much shorter than that, the overhead of managing the tasks becomes excessive.  Use the `-n` parameter to increase or decrease the size of tasks.
+- When using banded alignment (the default), the `-q` match quality parameter has a significant effect on speed.  A higher quality threshhold will consider more alignments, but take longer and produce more output.
+- The columns of the output are as follows:
+  1. Total Time is the elapsed time the master has been running.
+  2. Workers Idle is the number of workers that are connected, but do not have a task to run.
+  3. Workers Busy is the number of workers that are currently running a task.
+  4. Tasks Submitted is the cumulative number of tasks created by the master.
+  5. Tasks Idle is the number of tasks waiting for a worker.
+  6. Tasks Running is the number of tasks currently running on a worker.
+  7. Tasks Done is the cumulative number of tasks completed.
+  8. Avg Time is the average time a task takes to run.  An average time of 60 seconds is a good goal.
+  9. K-Cand Loaded indicates the number of candidates loaded into memory (in thousands).
+  10. K-Seqs Loaded indicates the number of sequences loaded into memory (in thousands).
+  11. Speedup is the approximate speed of the distributed framework, relative to one processor.
 
 For More Information
 --------------------
 
-<b>Last edited: January 2011</b>
+<b>Last edited: August 2019</b>
 
 SAND is Copyright (C) 2010- The University of Notre Dame.
 All rights reserved.

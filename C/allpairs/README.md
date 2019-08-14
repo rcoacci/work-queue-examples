@@ -31,6 +31,49 @@ part of the matrix, using a specified number of CPU cores. The abstraction then
 runs each of the functions in parallel, automatically handling load balancing,
 data movement, fault tolerance and so on for you.
 
+Getting Started
+---------------
+
+If you have not done so already, please clone this examples repository like so:
+
+    git clone https://github.com/cooperative-computing-lab/work-queue-examples.git
+    cd ./C/allpairs
+
+To use Allpairs, first install the <a
+    href="http://ccl.cse.nd.edu/software/downloadfiles.shtml">Cooperative Computing Tools</a>.
+If you want to build from source:
+
+    git clone https://github.com/cooperative-computing-lab/cctools.git
+    cd ./cctools
+    ./configure --prefix ${PWD}
+    make clean
+    make install
+    export PATH=${PWD}/bin:${PATH}
+    cd ..
+
+This will build Work Queue and other required libraries needed by Allpairs.
+In addition to CCTools, you will also need to build SAND which is also in this 
+set of examples:
+
+    cd ../sand
+
+Once in SAND, follow the instructions to build and install [SAND](../sand). 
+Note you can use the same CCTools install for both builds.
+
+After completing the SAND build, Allpairs requires knowing the location of
+CCTools, SAND, and where Allpairs will be installed. This is specified in `config.mk`:
+
+    echo CCTOOLS_INSTALL_DIR=${PWD}/cctools/ > config.mk
+    echo SAND_INSTALL_DIR=${PWD}/../sand >> config.mk
+    echo ALLPAIRS_INSTALL_DIR=${PWD}/ >> config.mk
+
+Once specified in `config.mk` we can now build the software:
+
+    make install
+    export PATH=${PWD}/bin:${PATH}
+
+
+
 All-Pairs on a Single Machine
 -----------------------------
 
@@ -132,6 +175,83 @@ can change this worker expiration time by setting the '`-t`' option.
 Note that `condor_submit_workers` and `sge_submit_workers` are
 simple shell scripts, so you can edit them directly if you would like to
 change batch options or other details.
+
+Simple Example
+--------------
+
+This example computes the list of composite numbers by brute force. We form the
+pairs of all numbers from 2 to 50, and check if the first one is
+properly divisible by the second one.
+
+### Prepare
+
+	./gen_ints.sh $TEST_INPUT 20
+
+    export TEST_INPUT=integer.list
+    export TEST_OUTPUT_STEP=composite_step.output
+    export TEST_OUTPUT=composite.output
+    export WORKER_LOG=worker.log
+
+
+### Run
+Run the master program with `divisible.sh` used to compare each pair.
+
+	allpairs_master -x 1 -y 1 --output-file $TEST_OUTPUT_STEP -p 9123 $TEST_INPUT $TEST_INPUT ./divisible.sh -d all
+
+In a separate shell (or the background) we run a worker to execute the tasks.
+
+	work_queue_worker --timeout 2 localhost 9123
+
+Once the `allpairs_master` is completed we can check is the output correctly matches the expected output.
+
+	awk '$3 ~ /^0$/{print $1}' $TEST_OUTPUT_STEP | sort -n | uniq > $TEST_OUTPUT
+	diff composites.dat $TEST_OUTPUT
+
+### Clean
+
+	rm -rf $TEST_INPUT $TEST_OUTPUT_STEP $TEST_OUTPUT $WORKER_LOG
+
+Internal Function Example
+-------------------------
+
+Compare the source of allpairs with the hard coded BITWISE function.
+This test could be better, since we only count the number of lines
+generated.
+
+### Prepare
+
+	./gen_ints.sh $TEST_INPUT 20
+
+    export TEST_INPUT=integer.list
+    export TEST_OUTPUT=composite.output
+    export WORKER_LOG=worker.log
+
+
+### Run
+
+	allpairs_master -p 9123 -x 1 -y 1 --output-file $TEST_OUTPUT $TEST_INPUT $TEST_INPUT BITWISE
+
+	work_queue_worker --timeout 2 localhost 9123
+
+	cat "$TEST_INPUT" | awk -F"/" '{print $3}'
+	howmany() { echo $#;}
+	num_files=$(howmany $in_files)
+	for i in $in_files; do
+	  count=`awk '{print $1}' $TEST_OUTPUT | grep -c $i`
+	  if [ $num_files != $count ]
+	  then
+		exit 1
+	  fi
+	  count=`awk '{print $2}' $TEST_OUTPUT | grep -c $i`
+	  if [ $num_files != $count ]
+	  then
+		exit 1
+	  fi
+	done
+
+### Clean
+
+    rm -rf $TEST_INPUT $TEST_OUTPUT
 
 Using an Internal Function
 --------------------------

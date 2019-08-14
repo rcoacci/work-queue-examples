@@ -40,9 +40,10 @@ If you want to build from source:
 
     git clone https://github.com/cooperative-computing-lab/cctools.git
     cd ./cctools
-    ./configure --prefix ${PWD}/cctools
+    ./configure --prefix ${PWD}
     make clean
     make install
+    export PATH=${PWD}/bin:${PATH}
     cd ..
 
 
