@@ -1,29 +1,41 @@
-The wq_replica_exchange program runs the replica exchange molecular dynamics
-simulations using the Work Queue framework. It uses the ProtoMol simulation
-engine as the computation kernel.
+Work Queue Replica Exchange
+---------------------------
 
-The directory includes files for the WW protein as a test input.
+This program implements the replica exchange ensemble method
+using the Work Queue framework and the Protomol molecular dynamics
+kernel.  An example execution is provided with the WW protein
+as a test input.
 
-To run:
+Please cite this work as follows:
+- Dinesh Rajan, Anthony Canino, Jesus A Izaguirre, and Douglas Thain, "Converting a High Performance Application to an Elastic Cloud Application", The 3rd IEEE International Conference on Cloud Computing Technology and Science", November 2011.
 
-1. Install CCTools.
-2. Install ProtoMol and make sure its installation is in PATH.
-3. ./wq_replica_exchange ww_exteq_nowater1.pdb ww_exteq_nowater1.psf par_all27_prot_lipid.inp  300 400  30
-This runs the replica exchange simulations on the WW protein with 30 replicas
-using temperatures between 300 and 400F.
-4. Start workers:
-work_queue_workers -d all <HOSTNAME> <PORT>
-where <HOSTNAME> is the name of the host on which the master is running
-	  <PORT> is the port number on which the master is listening.
+Installation
+------------
+
+- Install the [Work Queue](http://ccl.cse.nd.edu/software/workqueue) execution framework.
+
+- Install the [ProtoMol](https://simtk.org/projects/protomol) molecular dynamics toolkit.
+
+Example Application
+-------------------
+
+First start the manager program, indicating the simulation and replication
+configuration.  This example runs the replica exchange simulations on the WW protein with 30 replicas using temperatures between 300 and 400F:
+
+    ./wq_replica_exchange.py ww_exteq_nowater1.pdb ww_exteq_nowater1.psf par_all27_prot_lipid.inp  300 400  30
+
+The manager program will create and distribute tasks to remote workers.
+You must then start one or more workers as follows:
+
+    work_queue_workers -d all <HOSTNAME> <PORT>
+
+where <HOSTNAME> is the name of the host on which the master is running <PORT> is the port number on which the master is listening.
 
 Alternatively, you can also specify a project name for the master and use that
 to start workers:
 
-1. ./wq_replica_exchange -N REPEXCH ww_exteq_nowater1.pdb ww_exteq_nowater1.psf par_all27_prot_lipid.inp  300 400  30
-2. work_queue_worker -d all -N REPEXCH
-
-For listing the command-line options, do:
-./wq_replica_exchange -h
+    ./wq_replica_exchange -N REPEXCH ww_exteq_nowater1.pdb ww_exteq_nowater1.psf par_all27_prot_lipid.inp  300 400  30
+    work_queue_worker -d all -N REPEXCH
 
 When the application completes, you will find all the output files in the
 simfiles directory (or the directory specified in the -p option).

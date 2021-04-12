@@ -1,7 +1,6 @@
-#!/usr/bin/env cctools_python
-# CCTOOLS_PYTHON_VERSION 2.7 2.6
+#!/usr/bin/python2
 
-# replica_exchange.py
+# wq_replica_exchange.py
 #
 # Copyright (C) 2011- The University of Notre Dame
 # This software is distributed under the GNU General Public License.
