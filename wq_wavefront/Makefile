@@ -1,27 +1,18 @@
-include config.mk
 
-WAVEFRONT_PACKAGES=src
+# Set the variable to point to your cctools installation directory.
+CCTOOLS_INSTALL_DIR=${HOME}/cctools
 
-all: $(WAVEFRONT_PACKAGES)
+all: wavefront wavefront_manager
 
-config.mk:
-	@echo "You must run 'configure' before '${MAKE}'."
-	@exit 1
+wavefront: wavefront.o
 
-$(WAVEFRONT_PACKAGES): config.mk
-	@$(MAKE) -C $@
+wavefront_manager: wavefront_manager.o
 
-CLEAN_PACKAGES = $(WAVEFRONT_PACKAGES:%=clean-%)
-$(CLEAN_PACKAGES):
-	@$(MAKE) -C $(@:clean-%=%) clean
-clean: $(CLEAN_PACKAGES)
+%.o: %.c
+	gcc -o $@ -c -I${CCTOOLS_INSTALL_DIR}/include/cctools $< 
 
-INSTALL_PACKAGES = $(WAVEFRONT_PACKAGES:%=install-%)
-$(INSTALL_PACKAGES): $(WAVEFRONT_PACKAGES)
-	@$(MAKE) -C $(@:install-%=%) install
-install: $(INSTALL_PACKAGES)
-	mkdir -p $(WAVEFRONT_INSTALL_DIR)/bin
-	mkdir -p ${WAVEFRONT_INSTALL_DIR}/etc
-	cp config.mk ${WAVEFRONT_INSTALL_DIR}/etc/
+%: %.o
+	gcc -o $@ $(LDFLAGS) $^ -L${CCTOOLS_INSTALL_DIR}/lib -lbatch_job -lwork_queue -ldttools -lchirp -ldttools -lm -lz
 
-.PHONY: $(WAVEFRONT_PACKAGES) $(INSTALL_PACKAGES) $(CLEAN_PACKAGES) all clean install 
+clean:
+	rm -f wavefront.o wavefront wavefront_manager.o wavefront_manager
