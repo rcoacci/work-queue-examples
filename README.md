@@ -17,6 +17,7 @@ applications are written in various different styles and languages.
 Some require specific external programs to be installed.
 
 Python Applications:
+- wq_bwa
 - wq_maker
 - wq_repex 
 
@@ -28,4 +29,3 @@ C Applications:
 
 Perl Applications:
 - wq_bowtie
-- wq_bwq
