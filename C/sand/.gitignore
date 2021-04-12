@@ -1,0 +1,8 @@
+*.o
+filtering
+formatting
+alignment
+bin
+etc
+include
+lib

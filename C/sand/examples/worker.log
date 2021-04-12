@@ -1,0 +1,117 @@
+2019/07/03 11:06:37.94 work_queue_worker[8211] debug: work_queue_worker version 8.0.0 DEVELOPMENT (released 2019-06-04 10:48:53 -0400)
+2019/07/03 11:06:37.94 work_queue_worker[8211] debug: Built by nhazekam@disc24.crc.nd.edu on 2019-06-04 10:48:53 -0400
+2019/07/03 11:06:37.94 work_queue_worker[8211] debug: System: Linux disc24.crc.nd.edu 3.10.0-957.12.2.el7.x86_64 #1 SMP Fri Apr 19 21:09:07 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+2019/07/03 11:06:37.94 work_queue_worker[8211] debug: Configuration: --prefix /afs/crc.nd.edu/user/n/nhazekam/cctools/
+2019/07/03 11:06:37.94 work_queue_worker[8211] wq: WORK_QUEUE_SANDBOX set to /tmp/worker-198250-8211.
+2019/07/03 11:06:37.96 work_queue_worker[8211] debug: error reading disk usage on directory: ./cache.
+2019/07/03 11:06:37.96 work_queue_worker[8211] dns: looking up name localhost
+2019/07/03 11:06:37.96 work_queue_worker[8211] dns: localhost is 127.0.0.1
+2019/07/03 11:06:37.96 work_queue_worker[8211] tcp: connecting to 127.0.0.1 port 1024
+2019/07/03 11:06:37.96 work_queue_worker[8211] tcp: made connection to 127.0.0.1 port 1024
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: connected to master localhost:1024 via local address 127.0.0.1:57798
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: preparing workspace /tmp/worker-198250-8211
+2019/07/03 11:06:37.96 work_queue_worker[8211] dns: looking up name disc24.crc.nd.edu
+2019/07/03 11:06:37.96 work_queue_worker[8211] dns: disc24.crc.nd.edu is 10.32.74.186
+2019/07/03 11:06:37.96 work_queue_worker[8211] dns: looking up addr 10.32.74.186
+2019/07/03 11:06:37.96 work_queue_worker[8211] dns: 10.32.74.186 is disc24.crc.nd.edu
+2019/07/03 11:06:37.96 work_queue_worker[8211] dns: finding my hostname: uname = disc24.crc.nd.edu, address = 10.32.74.186, hostname = disc24.crc.nd.edu
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: tx to master: workqueue 8 disc24.crc.nd.edu Linux x86_64 8.0.0
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: tx to master: info worker-id worker-03f39ec834180dded7e492be908456ed
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: tx to master: alive
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: Sending resource description to master:
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq:  workers      0 inuse      1 total      1 smallest      1 largest
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq:     disk      0 inuse    150 total    150 smallest    150 largest
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq:   memory      0 inuse    150 total    150 smallest    150 largest
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq:     gpus      0 inuse      0 total      0 smallest      0 largest
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq:    cores      0 inuse      1 total      1 smallest      1 largest
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: tx to master: info end_of_resource_update 0
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: tx to master: info tasks_running 0
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: working for master at 127.0.0.1:1024.
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: rx from master: put file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel 199464 0755 1
+2019/07/03 11:06:37.96 work_queue_worker[8211] wq: Putting file file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel into workspace
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: put file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa 3884 0644 1
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: Putting file file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa into workspace
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: task 1
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: cmd 50
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: ./sand_filter_kernel -k 22 -w 22 -s d rect000.cfa
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: category default
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: cores 1
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: memory 150
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: disk 150
+2019/07/03 11:06:37.97 work_queue_worker[8211] wq: rx from master: gpus 0
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: end_time 18446744073709551615
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: wall_time 18446744073709551615
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: infile file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel sand_filter_kernel 1
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: infile file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa rect000.cfa 1
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: end
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: linking cache/file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel to /tmp/worker-198250-8211/t.1/sand_filter_kernel
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: linking cache/file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa to /tmp/worker-198250-8211/t.1/rect000.cfa
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: started process 8215: ./sand_filter_kernel -k 22 -w 22 -s d rect000.cfa
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: tx to master: info tasks_running 1
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: task 1 (pid 8215) exited normally with exit code 0
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: tx to master: available_results
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: send_results -1
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: tx to master: result 0 0 10521 6760 1
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: tx to master: info tasks_running 0
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: tx to master: end
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: kill 1
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: put file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa 4089 0644 1
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: Putting file file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa into workspace
+2019/07/03 11:06:37.98 work_queue_worker[8211] wq: rx from master: task 2
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: cmd 61
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: ./sand_filter_kernel -k 22 -w 22 -s d rect001.cfa rect000.cfa
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: category default
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: cores 1
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: memory 150
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: disk 150
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: gpus 0
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: end_time 18446744073709551615
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: wall_time 18446744073709551615
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: infile file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel sand_filter_kernel 1
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: infile file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa rect001.cfa 1
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: infile file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa rect000.cfa 1
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: end
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: linking cache/file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel to /tmp/worker-198250-8211/t.2/sand_filter_kernel
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: linking cache/file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa to /tmp/worker-198250-8211/t.2/rect001.cfa
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: linking cache/file-0-ba1fc8bb11ee162a4463ec0acdbbab22-rect000.cfa to /tmp/worker-198250-8211/t.2/rect000.cfa
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: started process 8216: ./sand_filter_kernel -k 22 -w 22 -s d rect001.cfa rect000.cfa
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: tx to master: info tasks_running 1
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: task 2 (pid 8216) exited normally with exit code 0
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: tx to master: available_results
+2019/07/03 11:06:37.99 work_queue_worker[8211] wq: rx from master: send_results -1
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: tx to master: result 0 0 24301 8257 2
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: tx to master: info tasks_running 0
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: tx to master: end
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: kill 2
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: task 3
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: cmd 50
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: ./sand_filter_kernel -k 22 -w 22 -s d rect001.cfa
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: category default
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: cores 1
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: memory 150
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: disk 150
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: gpus 0
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: end_time 18446744073709551615
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: wall_time 18446744073709551615
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: infile file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel sand_filter_kernel 1
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: infile file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa rect001.cfa 1
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: rx from master: end
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: linking cache/file-0-ae9541ee8f580499a8abe1f6b6d18b97-sand_filter_kernel to /tmp/worker-198250-8211/t.3/sand_filter_kernel
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: linking cache/file-0-01a24212e9a3455055504a4f2903e3a4-rect001.cfa to /tmp/worker-198250-8211/t.3/rect001.cfa
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: started process 8217: ./sand_filter_kernel -k 22 -w 22 -s d rect001.cfa
+2019/07/03 11:06:38.00 work_queue_worker[8211] wq: tx to master: info tasks_running 1
+2019/07/03 11:06:38.01 work_queue_worker[8211] wq: task 3 (pid 8217) exited normally with exit code 0
+2019/07/03 11:06:38.01 work_queue_worker[8211] wq: tx to master: available_results
+2019/07/03 11:06:38.01 work_queue_worker[8211] wq: rx from master: send_results -1
+2019/07/03 11:06:38.01 work_queue_worker[8211] wq: tx to master: result 0 0 12632 7268 3
+2019/07/03 11:06:38.01 work_queue_worker[8211] wq: tx to master: info tasks_running 0
+2019/07/03 11:06:38.01 work_queue_worker[8211] wq: tx to master: end
+2019/07/03 11:06:38.01 work_queue_worker[8211] wq: rx from master: kill 3
+2019/07/03 11:06:38.02 work_queue_worker[8211] wq: rx from master: release
+2019/07/03 11:06:38.02 work_queue_worker[8211] wq: released by master 127.0.0.1:1024.
+2019/07/03 11:06:38.02 work_queue_worker[8211] wq: cleaning workspace /tmp/worker-198250-8211
+2019/07/03 11:06:38.02 work_queue_worker[8211] wq: disconnecting from master 127.0.0.1:1024
+2019/07/03 11:06:38.02 work_queue_worker[8211] tcp: disconnected from 127.0.0.1 port 1024
+2019/07/03 11:06:38.02 work_queue_worker[8211] wq: killing all outstanding tasks
+2019/07/03 11:06:38.02 work_queue_worker[8211] wq: all data structures are clean
+2019/07/03 11:06:38.02 work_queue_worker[8211] notice: stopping: single shot mode
