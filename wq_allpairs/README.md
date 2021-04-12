@@ -31,6 +31,10 @@ part of the matrix, using a specified number of CPU cores. The abstraction then
 runs each of the functions in parallel, automatically handling load balancing,
 data movement, fault tolerance and so on for you.
 
+Please cite this work as follows:
+- Christopher Moretti, Hoang Bui, Karen Hollingsworth, Brandon Rich, Patrick Flynn, and Douglas Thain, All-Pairs: An Abstraction for Data Intensive Computing on Campus Grids, IEEE Transactions on Parallel and Distributed Systems, 21(1), pages 33-46, January, 2010. DOI: 10.1109/TPDS.2009.49
+
+
 Getting Started
 ---------------
 
