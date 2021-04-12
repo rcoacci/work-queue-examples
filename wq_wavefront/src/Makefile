@@ -1,36 +1,18 @@
-include ../config.mk
 
+# Set the variable to point to your cctools installation directory.
+CCTOOLS_INSTALL_DIR=${HOME}/cctools
 
-EXTERNAL_DEPENDENCIES = ${CCTOOLS_INSTALL_DIR}/lib/libbatch_job.a ${CCTOOLS_INSTALL_DIR}/lib/libwork_queue.a ${CCTOOLS_INSTALL_DIR}/lib/libchirp.a ${CCTOOLS_INSTALL_DIR}/lib/libdttools.a
-PROGRAMS = wavefront wavefront_master
-TARGETS = $(PROGRAMS)
+all: wavefront wavefront_master
 
-all: $(PROGRAMS)
-$(PROGRAMS): $(EXTERNAL_DEPENDENCIES)
+wavefront: wavefront.o
 
-CC=@echo COMPILE $@;gcc
+wavefront_master: wavefront_master.o
 
 %.o: %.c
-	$(CC) -o $@ -c -I${CCTOOLS_INSTALL_DIR}/include/cctools/ $< 
-
-
-LD = @echo LINK $@;gcc
+	gcc -o $@ -c -I${CCTOOLS_INSTALL_DIR}/include/cctools $< 
 
 %: %.o
-	$(LD) -o $@ $(LDFLAGS) $(LOCAL_LDFLAGS) $^ -lm -lz
-
-# Cancel Make defined implicit rule:
-%: %.c
-
-.PRECIOUS: %.o
+	gcc -o $@ $(LDFLAGS) $^ -L${CCTOOLS_INSTALL_DIR}/lib -lbatch_job -lwork_queue -ldttools -lchirp -ldttools -lm -lz
 
 clean:
-	rm -f $(PROGRAMS) *.o
-
-install: all
-	mkdir -p $(CCTOOLS_INSTALL_DIR)/bin
-	cp $(PROGRAMS) $(CCTOOLS_INSTALL_DIR)/bin/
-
-test: all
-
-.PHONY: all clean install test
+	rm -f wavefront.o wavefront wavefront_master.o wavefront_master
