@@ -1,2 +1,4 @@
 *.o
-etc
+wavefront
+wavefront_manager
+example.func

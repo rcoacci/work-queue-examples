@@ -2,11 +2,13 @@
 # Set the variable to point to your cctools installation directory.
 CCTOOLS_INSTALL_DIR=${HOME}/cctools
 
-all: wavefront wavefront_manager
+all: wavefront wavefront_manager example.func
 
 wavefront: wavefront.o
 
 wavefront_manager: wavefront_manager.o
+
+example.func: example.func.o
 
 %.o: %.c
 	gcc -o $@ -c -I${CCTOOLS_INSTALL_DIR}/include/cctools $< 
