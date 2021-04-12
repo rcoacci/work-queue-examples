@@ -167,7 +167,6 @@ void wavefront_bitmap_initialize( struct bitmap *b )
 int main( int argc, char *argv[] )
 {
 	signed char c;
-	int work_queue_master_mode = WORK_QUEUE_MASTER_MODE_STANDALONE;
 	char *work_queue_preferred_connection = NULL;
 	char *project = NULL;
 	int priority = 0;
@@ -208,8 +207,6 @@ int main( int argc, char *argv[] )
 			exit(0);
 			break;
 		case 'N':
-			work_queue_master_mode = WORK_QUEUE_MASTER_MODE_CATALOG;
-			free(project);
 			project = xxstrdup(optarg);
 			break;
 		case 'p':
@@ -278,12 +275,6 @@ int main( int argc, char *argv[] )
 		return 1;
 	}
 
-	if(work_queue_master_mode == WORK_QUEUE_MASTER_MODE_CATALOG && !project) {
-		fprintf(stderr, "wavefront: wavefront master running in catalog mode. Please use '-N' option to specify the name of this project.\n");
-		fprintf(stderr, "wavefront: Run \"%s -h\" for help with options.\n", argv[0]);
-		return 1;
-	}
-
 	queue = work_queue_create(port);
 
 	//Read the port the queue is actually running, in case we just called
@@ -298,9 +289,9 @@ int main( int argc, char *argv[] )
 	if(port_file)
 		opts_write_port_file(port_file, port);
 
-	// advanced work queue options
-	work_queue_specify_master_mode(queue, work_queue_master_mode);
-	work_queue_specify_name(queue, project);
+	if(project)
+		work_queue_specify_name(queue, project);
+
 	work_queue_specify_priority(queue, priority);
 
 	if(work_queue_preferred_connection)
