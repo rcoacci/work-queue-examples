@@ -1,27 +1,18 @@
-include config.mk
 
-ALLPAIRS_PACKAGES=src
+# Set the variable to point to your cctools installation directory.
+CCTOOLS_INSTALL_DIR=${HOME}/cctools
 
-all: $(ALLPAIRS_PACKAGES)
+all: allpairs_multicore allpairs_manager
 
-config.mk:
-	@echo "You must run 'configure' before '${MAKE}'."
-	@exit 1
+allpairs_multicore: allpairs_multicore.o allpairs_compare.o
 
-$(ALLPAIRS_PACKAGES): config.mk
-	@$(MAKE) -C $@
+allpairs_manager: allpairs_manager.o allpairs_compare.o
 
-CLEAN_PACKAGES = $(ALLPAIRS_PACKAGES:%=clean-%)
-$(CLEAN_PACKAGES):
-	@$(MAKE) -C $(@:clean-%=%) clean
-clean: $(CLEAN_PACKAGES)
+%.o: %.c
+	gcc -o $@ -c -I${CCTOOLS_INSTALL_DIR}/include/cctools $< 
 
-INSTALL_PACKAGES = $(ALLPAIRS_PACKAGES:%=install-%)
-$(INSTALL_PACKAGES): $(ALLPAIRS_PACKAGES)
-	@$(MAKE) -C $(@:install-%=%) install
-install: $(INSTALL_PACKAGES)
-	mkdir -p $(ALLPAIRS_INSTALL_DIR)/bin
-	mkdir -p ${ALLPAIRS_INSTALL_DIR}/etc
-	cp config.mk ${ALLPAIRS_INSTALL_DIR}/etc/
+%: %.o
+	gcc -o $@ $(LDFLAGS) $^ -L${CCTOOLS_INSTALL_DIR}/lib -lbatch_job -lwork_queue -ldttools -lchirp -ldttools -lm -lz -lpthread
 
-.PHONY: $(ALLPAIRS_PACKAGES) $(INSTALL_PACKAGES) $(CLEAN_PACKAGES) all clean install 
+clean:
+	rm -f allpairs_multicore.o allpairs_multicore allpairs_manager.o allpairs_manager

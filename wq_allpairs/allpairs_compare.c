@@ -15,9 +15,6 @@ See the file COPYING for details.
 #include "text_list.h"
 #include "xxmalloc.h"
 
-#include "matrix.h"
-#include "align.h"
-
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*
@@ -62,6 +59,10 @@ static void allpairs_compare_BITWISE( const char *name1, const char *data1, int 
 	pthread_mutex_unlock(&mutex);
 }
 
+#if 0
+#include "matrix.h"
+#include "align.h"
+
 /*
 This function aligns two DNA sequences using the Smith-Waterman algorithm,
 and if the quality is sufficiently good, displays the alignment.
@@ -88,6 +89,8 @@ static void allpairs_compare_SWALIGN( const char *name1, const char *data1, int 
 	matrix_delete(m);
 	alignment_delete(aln);
 }
+
+#endif
 
 /*
 This function compares two iris templates in the binary format used by the Computer Vision Research Lab at the University of Notre Dame.
@@ -210,8 +213,6 @@ allpairs_compare_t allpairs_compare_function_get( const char *name )
 		return allpairs_compare_CUSTOM;
 	} else if(!strcmp(name,"BITWISE")) {
 		return allpairs_compare_BITWISE;
-	} else if(!strcmp(name,"SWALIGN")) {
-		return allpairs_compare_SWALIGN;
 	} else if(!strcmp(name,"IRIS")) {
 		return allpairs_compare_IRIS;
 	} else {

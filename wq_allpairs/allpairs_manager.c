@@ -308,7 +308,6 @@ int main(int argc, char **argv)
 	struct work_queue *q;
 	int port = WORK_QUEUE_DEFAULT_PORT;
 	static const char *port_file = NULL;
-	int work_queue_master_mode = WORK_QUEUE_MASTER_MODE_STANDALONE;
 	char *project = NULL;
 	char *work_queue_preferred_connection = NULL;
 	int priority = 0;
@@ -326,7 +325,6 @@ int main(int argc, char **argv)
 		{"extra-args", required_argument, 0, 'e'},
 		{"width", required_argument, 0, 'x'},
 		{"height", required_argument, 0, 'y'},
-		{"advertise", no_argument, 0, 'a'},    //deprecated, left here for backwards compatibility
 		{"project-name", required_argument, 0, 'N'},
 		{"debug-file", required_argument, 0, 'o'},
 		{"output-file", required_argument, 0, 'O'},
@@ -340,11 +338,8 @@ int main(int argc, char **argv)
 	};
 
 
-	while((c = getopt_long(argc, argv, "ad:e:f:hN:p:P:t:vx:y:Z:O:o:s:", long_options, NULL)) >= 0) {
+	while((c = getopt_long(argc, argv, "d:e:f:hN:p:P:t:vx:y:Z:O:o:s:", long_options, NULL)) >= 0) {
 		switch (c) {
-		case 'a':
-			work_queue_master_mode = WORK_QUEUE_MASTER_MODE_CATALOG;
-			break;
 		case 'd':
 			debug_flags_set(optarg);
 			break;
@@ -370,8 +365,6 @@ int main(int argc, char **argv)
 			exit(0);
 			break;
 		case 'N':
-			work_queue_master_mode = WORK_QUEUE_MASTER_MODE_CATALOG;
-			free(project);
 			project = xxstrdup(optarg);
 			break;
 		case 'p':
@@ -464,12 +457,6 @@ int main(int argc, char **argv)
 
 	fprintf(stdout, "%s: using block size of %dx%d\n",progname,xblock,yblock);
 
-	if(work_queue_master_mode == WORK_QUEUE_MASTER_MODE_CATALOG && !project) {
-		fprintf(stderr, "allpairs: allpairs master running in catalog mode. Please use '-N' option to specify the name of this project.\n");
-		fprintf(stderr, "allpairs: Run \"%s -h\" for help with options.\n", argv[0]);
-		return 1;
-	}
-
 	q = work_queue_create(port);
 
 	//Read the port the queue is actually running, in case we just called
@@ -487,9 +474,7 @@ int main(int argc, char **argv)
 	if(wqstats_filename)
 		work_queue_specify_log(q, wqstats_filename);
 
-	// advanced work queue options
-	work_queue_specify_master_mode(q, work_queue_master_mode);
-	work_queue_specify_name(q, project);
+	if(project) work_queue_specify_name(q, project);
 	work_queue_specify_priority(q, priority);
 
 	if(work_queue_preferred_connection)

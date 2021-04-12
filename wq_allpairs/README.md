@@ -115,23 +115,23 @@ All-Pairs abstraction on clusters, grids or clouds.
 
 
 To use the All-Pairs Work Queue version, you will need to start a All-Pairs
-master program called `allpairs_master` and a number of workers.
-The workers will perform the tasks distributed by the master and return the
-results to the master. The individual tasks that the master program distributes
+manager program called `allpairs_manager` and a number of workers.
+The workers will perform the tasks distributed by the manager and return the
+results to the manager. The individual tasks that the manager program distributes
 are sub-matrix computation tasks and all the tasks would be performed by the
 `allpairs_multicore` program on the workers. For end users, the only
-extra step involved here is starting the workers. Starting the All-Pairs master
+extra step involved here is starting the workers. Starting the All-Pairs manager
 program is almost identical to starting the All-Pairs multicore program.
 
 
 For example, to run the same example as above on a distributed system:
 
-    allpairs_master set.list set.list compareit
+    allpairs_manager set.list set.list compareit
 
 
 
-This will start the master process, which will wait for workers to connect.
-Let's suppose the master is running on a machine named `barney.nd.edu`.
+This will start the manager process, which will wait for workers to connect.
+Let's suppose the manager is running on a machine named `barney.nd.edu`.
 If you have access to login to other machines, you could simply start
 worker processes by hand on each one, like this:
 
@@ -153,21 +153,21 @@ A similar script is available for Sun Grid Engine:
 
 
 In the above two examples, the first argument is the port number that the
-master process will be or is listening on and the second the argument is the
+manager process will be or is listening on and the second the argument is the
 number of workers to start. Note that `9123` is the default port
-number that the master process uses. If you use the '-p' option in the
-`allpairs_master` to change the listening port, you will need to
+number that the manager process uses. If you use the '-p' option in the
+`allpairs_manager` to change the listening port, you will need to
 modify the port argument in the starting worker command accordingly.
 
 
-Once the workers are running, the `allpairs_master` can dispatch tasks
+Once the workers are running, the `allpairs_manager` can dispatch tasks
 to each one very quickly.  If a worker should fail, Work Queue will retry the
 work elsewhere, so it is safe to submit many workers to an unreliable
 system.
 
 
-When the All-Pairs master process completes, your workers will
-still be available, so you can either run another master with the same workers,
+When the All-Pairs manager process completes, your workers will
+still be available, so you can either run another manager with the same workers,
 remove them from the batch system, or wait for them to expire.  If you do
 nothing for 15 minutes, they will automatically exit by default.  You
 can change this worker expiration time by setting the '`-t`' option.
@@ -195,15 +195,15 @@ properly divisible by the second one.
 	../gen_ints.sh $TEST_INPUT 20
 
 ### Run
-Run the master program with `divisible.sh` used to compare each pair.
+Run the manager program with `divisible.sh` used to compare each pair.
 
-	allpairs_master -p 9123 -x 1 -y 1 --output-file $TEST_OUTPUT_STEP $TEST_INPUT $TEST_INPUT ./divisible.sh
+	allpairs_manager -p 9123 -x 1 -y 1 --output-file $TEST_OUTPUT_STEP $TEST_INPUT $TEST_INPUT ./divisible.sh
 
 In a separate shell (or the background) we run a worker to execute the tasks.
 
 	work_queue_worker --timeout 2 localhost 9123
 
-Once the `allpairs_master` is completed we can check is the output correctly matches the expected output.
+Once the `allpairs_manager` is completed we can check is the output correctly matches the expected output.
 
 	awk '$3 ~ /^0$/{print $1}' $TEST_OUTPUT_STEP | sort -n | uniq > $TEST_OUTPUT
 	diff composites.dat $TEST_OUTPUT
@@ -235,7 +235,7 @@ generated.
 
 
 
-	allpairs_master -p 9123 -x 1 -y 1 --output-file $TEST_OUTPUT $TEST_INPUT $TEST_INPUT BITWISE
+	allpairs_manager -p 9123 -x 1 -y 1 --output-file $TEST_OUTPUT $TEST_INPUT $TEST_INPUT BITWISE
 
 	work_queue_worker --timeout 2 localhost 9123
 
@@ -262,7 +262,7 @@ At the top, you will see a function named `allpairs_compare_CUSTOM`, which accep
 two memory objects as arguments.  Implement your comparison function, and then rebuild
 the code.  Test you code by running `allpairs_multicore` on a small set of data,
 but specify `CUSTOM` as the name of the comparison program.  If your tests succeeed
-on a small set of data, then proceed to using `allpairs_master`.
+on a small set of data, then proceed to using `allpairs_manager`.
 
 
 We have implemented several internal comparison functions as examples, including:
@@ -273,8 +273,8 @@ We have implemented several internal comparison functions as examples, including
 Tuning Performance
 ------------------
 
-By default, both `allpairs_master` and `allpairs_multicore` will adjust to
-the proprties of your workload to run it efficiently.  `allpairs_master` will run
+By default, both `allpairs_manager` and `allpairs_multicore` will adjust to
+the proprties of your workload to run it efficiently.  `allpairs_manager` will run
 a few sample executions of your comparison program to measure how long it takes, and
 then break up the work units into tasks that take abuot one minute each.  Likewise,
 `allpairs_multicore` will measure the number of cores and amount of memory
@@ -282,11 +282,11 @@ available on your system, and then arrange the computation to maximize performan
 
 
 If you like, you can use the options to further tune how the problem is decomposed:
-- `-t` can be used to inform `allpairs_master` how long (in seconds)
-it takes to perform each comparison.  If given, `allpairs_master` will not
+- `-t` can be used to inform `allpairs_manager` how long (in seconds)
+it takes to perform each comparison.  If given, `allpairs_manager` will not
 sample the execution, and will start the computation immediately.
 - `-x` and `-y` can be used to set the size of the sub-problem
-dispatched from `allpairs_master` to `allpairs_multicore`
+dispatched from `allpairs_manager` to `allpairs_multicore`
 - `-c` controls the number of cores used by `allpairs_multicore`,
 which is all available cores by default.
 - `-b` controls the block size of elements maintained in memory by `allpairs_multicore`,
