@@ -1,22 +1,17 @@
-CCTOOLS_HOME = ../../
 
-include ${CCTOOLS_HOME}/config.mk
-include ${CCTOOLS_HOME}/rules.mk
+# Set the variable to point to your cctools installation directory.
+CCTOOLS_INSTALL_DIR=${HOME}/cctools
 
-PROGRAMS = wq_sort
-
-LOCAL_LDFLAGS= -lwork_queue -ldttools ${CCTOOLS_INTERNAL_LDFLAGS}
-
-all: ${PROGRAMS}
+all: wq_sort
 
 wq_sort: wq_sort.o
-	${CCTOOLS_LD} wq_sort.o ${LOCAL_LDFLAGS} -o $@
+
+%.o: %.c
+	gcc -o $@ -c -I${CCTOOLS_INSTALL_DIR}/include/cctools $< 
+
+%: %.o
+	gcc -o $@ $(LDFLAGS) $^ -L${CCTOOLS_INSTALL_DIR}/lib -lwork_queue -ldttools -lm -lz
 
 clean:
-	rm -f *~ *.o ${PROGRAMS}
+	rm -f wq_sort.o wq_sort
 
-test: all
-
-install: all
-	mkdir -p ${CCTOOLS_INSTALL_DIR}/bin
-	cp ${PROGRAMS} ${CCTOOLS_INSTALL_DIR}/bin

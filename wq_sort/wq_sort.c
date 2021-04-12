@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2013- The University of Notre Dame
+  Copyright (C) 2013-2021 The University of Notre Dame
   This software is distributed under the GNU General Public License.
   See the file COPYING for details.
 */
@@ -643,13 +643,10 @@ int main(int argc, char *argv[])
 	fprintf(stdout, "listening on port %d...\n", work_queue_port(q));
 
 	if(proj_name){
-		work_queue_specify_master_mode(q, WORK_QUEUE_MASTER_MODE_CATALOG);
 		work_queue_specify_name(q, proj_name);
 	}
 	work_queue_specify_keepalive_interval(q, keepalive_interval);
 	work_queue_specify_keepalive_timeout(q, keepalive_timeout);
-
-	free((void *)proj_name);
 
 	fprintf(stdout, "%s will be run to sort contents of %s\n", sort_executable, infile);
 
