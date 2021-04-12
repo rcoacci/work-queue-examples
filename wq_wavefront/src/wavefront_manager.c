@@ -119,13 +119,13 @@ static void show_help(const char *cmd)
 	fprintf(stdout, " %-30s Display this message.\n", "-h,--help");
 	fprintf(stdout, " %-30s Show program version.\n", "-v,--version");
 	fprintf(stdout, " %-30s Enable debugging for this subsystem.  (Try -d all to start.)\n", "-d,--debug=<flag>");
-	fprintf(stdout, " %-30s Advertise the master information to a catalog server.\n", "-a,--advertise");
+	fprintf(stdout, " %-30s Advertise the manager information to a catalog server.\n", "-a,--advertise");
 	fprintf(stdout, " %-30s Set the project name to <project>\n", "-N,--project-name=<project>");
 	fprintf(stdout, " %-30s Send debugging to this file. (can also be :stderr, :stdout, :syslog, or :journal)\n", "-o,--debug-file=<file>");
-	fprintf(stdout, " %-30s The port that the master will be listening on. (default 9068)\n", "-p,--port=<port>");
+	fprintf(stdout, " %-30s The port that the manager will be listening on. (default 9068)\n", "-p,--port=<port>");
 	fprintf(stdout, " %-30s Priority. Higher the value, higher the priority.\n", "-P,--priority=<integer>");
 	fprintf(stdout, " %-30s Select port at random and write it to this file.\n", "-Z,--random-port=<file>");
-	fprintf(stdout, " %-30s Indicate preferred master connection. Choose one of by_ip or by_hostname. (default is by_ip)\n", "--work-queue-preferred-connection");
+	fprintf(stdout, " %-30s Indicate preferred manager connection. Choose one of by_ip or by_hostname. (default is by_ip)\n", "--work-queue-preferred-connection");
 }
 
 static void display_progress( struct work_queue *q )
@@ -295,7 +295,7 @@ int main( int argc, char *argv[] )
 	work_queue_specify_priority(queue, priority);
 
 	if(work_queue_preferred_connection)
-		work_queue_master_preferred_connection(queue, work_queue_preferred_connection);
+		work_queue_manager_preferred_connection(queue, work_queue_preferred_connection);
 
 	fprintf(stdout, "%s: listening for workers on port %d...\n",progname,work_queue_port(queue));
 
