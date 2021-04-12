@@ -18,7 +18,6 @@ Some require specific external programs to be installed.
 
 Python Applications:
 - wq_bwa
-- wq_maker
 - wq_repex 
 
 C Applications:
@@ -28,4 +27,5 @@ C Applications:
 - wq_sort
 
 Perl Applications:
+- wq_maker
 - wq_bowtie
