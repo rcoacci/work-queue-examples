@@ -17,15 +17,15 @@ applications are written in various different styles and languages.
 Some require specific external programs to be installed.
 
 Python Applications:
-- wq_bwa
-- wq_repex 
+- wq_bwa - Distributed implementation of the Burroughs-Wheeler Algorithm (BWA) genome search tool.
+- wq_repex - Distributed implementation of replica exchange algorithm using the Protomol molecular dynamics system.
 
 C Applications:
-- wq_allpairs
-- wq_wavefront
-- wq_sand
-- wq_sort
+- wq_sort - Sorts large datasets via distributed merge sort.
+- wq_allpairs - Computes very large scale Cartesian products on large datasets.
+- wq_wavefront - Computes very large scale wavefront problems, such as dynamic programming.
+- wq_sand - Parallelizes the Celera assembler in two stages: candidate selection and alignment.
 
 Perl Applications:
-- wq_maker
-- wq_bowtie
+- wq_maker - Distributed implementation of the MAKER genome annotation toolkit.
+- wq_bowtie - Distributed implementation of the BOWTIE genomic search tool.
