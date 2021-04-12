@@ -42,7 +42,7 @@ To use Wavefront, first install the <a href="http://ccl.cse.nd.edu/software/down
 Then clone this example repository and build wavefront like so:
 
     git clone https://github.com/cooperative-computing-lab/work-queue-examples.git
-    cd wq_wavefront
+    cd work-queue-examples/wq_wavefront
     make
 
 Note that this builds three different programs:
