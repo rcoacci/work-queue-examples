@@ -56,27 +56,25 @@ Note that this builds two different programs:
 All-Pairs on a Single Machine
 -----------------------------
 
-Let's suppose you have a whole lot of files that you want to compare all to each other, named `a`, `b`, `c`, and so on.  Suppose that you also have a program named `compareit` that when invoked as `compareit a b` will compare files `a` and `b` and produce some output summarizing the difference between the two, like this:
+The following example is provided the working directory.  The file `example.list` contains a list of file names to compare to each other: `example.a`, `example.b`, and so on. The script `example.compare` performs a simple diff between two arguments, telling us whether the files are identical or different.
 
-    a b are 45 percent similar
-
-
-To use the allpairs framework, create a file called `set.list` that lists each of your files, one per line:
-
-    a
-    b
-    c
-    ...
+To use the allpairs framework locall, run `allpairs_multicore` like this:
 
 Then, invoke `allpairs_multicore` like this:
 
-    allpairs_multicore set.list set.list compareit
+    allpairs_multicore example.list example.list example.compare
 
 The framework will carry out all possible comparisons of the objects, and print the results one by one:
 
-    a a are 100 percent similar
-    a b are 45 percent similar
-    a c are 37 percent similar
+    example.a	example.a	
+    example.b	example.a	Files example.b and example.a differ
+    example.c	example.a	Files example.c and example.a differ
+    example.a	example.b	Files example.a and example.b differ
+    example.b	example.b	
+    example.c	example.b	Files example.c and example.b differ
+    example.a	example.c	Files example.a and example.c differ
+    example.b	example.c	Files example.b and example.c differ
+    example.c	example.c	
     ...
 
 
@@ -85,8 +83,7 @@ For large sets of objects, allpairs_multicore will use as many cores as you have
 All-Pairs in a Distributed System
 ---------------------------------
 
-So far, we have introduced how to use All-Pairs abstraction on a single
-machine.  But sometimes the All-Pairs problem is too big to allow a single
+Sometimes the All-Pairs problem is too big to allow a single
 machine to finish it in a reasonable amount of time, even if the single machine
 is multicore. So, we have built a <a href="http://ccl.cse.nd.edu/software/workqueue">Work Queue</a>
 version of the All-Pairs abstraction which allows the users to easily apply the
@@ -101,10 +98,9 @@ are sub-matrix computation tasks and all the tasks would be performed by the
 extra step involved here is starting the workers. Starting the All-Pairs manager
 program is almost identical to starting the All-Pairs multicore program.
 
-
 For example, to run the same example as above on a distributed system:
 
-    allpairs_manager set.list set.list compareit
+    allpairs_manager example.list example.list example.compare
 
 This will start the manager process, which will wait for workers to connect.
 Let's suppose the manager is running on a machine named `barney.nd.edu`.
@@ -137,9 +133,6 @@ still be available, so you can either run another manager with the same workers,
 remove them from the batch system, or wait for them to expire.  If you do
 nothing for 15 minutes, they will automatically exit by default.  You
 can change this worker expiration time by setting the '`-t`' option.
-
-Simple Example
---------------
 
 Using an Internal Function
 --------------------------
