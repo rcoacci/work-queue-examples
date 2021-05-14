@@ -21,7 +21,7 @@ logger = logging.getLogger()
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(message)s')
 
 
-def create_work_queue_task(task_counter, tmpdir, function, input_args, fn_wrapper='exec_python_fn.py'):
+def create_work_queue_task(task_counter, tmpdir, function, input_args, fn_wrapper='mdsim.py'):
 
     logger.debug("creating task {}: {}({})".format(task_counter, function.__name__, ','.join(str(arg) for arg in input_args)))
 
