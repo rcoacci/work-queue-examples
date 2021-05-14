@@ -52,6 +52,10 @@ def create_work_queue_task(task_counter, tmpdir, function, input_args, fn_wrappe
     task.specify_input_file(args_file, cache=False)
     task.specify_output_file(out_file, cache=False)
 
+    task.specify_cores(1)
+    task.specify_memory(250) #MB
+    task.specify_disk(250)   #MB
+
     return task
 
 
