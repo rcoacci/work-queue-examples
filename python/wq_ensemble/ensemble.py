@@ -2,7 +2,8 @@
 #
 # This example shows how to execute native python functions as Work Queue
 # tasks. In particular, the python function 'application_function(x,y)' (which
-# simply computes y/x) is executed remotely at workers as Work Queue task.
+# simply computes y/x) is executed remotely at workers as Work Queue task for
+# various combinations of arguments.
 #
 # A Work Queue task is created by writing the desired function and its
 # arguments to a file (i.e., serialization). At the worker, these files are
