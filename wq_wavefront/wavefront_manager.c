@@ -125,6 +125,9 @@ static void show_help(const char *cmd)
 	fprintf(stdout, " %-30s Priority. Higher the value, higher the priority.\n", "-P,--priority=<integer>");
 	fprintf(stdout, " %-30s Select port at random and write it to this file.\n", "-Z,--random-port=<file>");
 	fprintf(stdout, " %-30s Indicate preferred manager connection. Choose one of by_ip or by_hostname. (default is by_ip)\n", "--work-queue-preferred-connection");
+	fprintf(stdout, " %-30s Activate task speculation with multiplier <multiplier> (default is disabled)\n", "-s,--speculation=<multiplier>");
+	fprintf(stdout, " %-30s Set speculative tasks priority to <priority> (default is 5). Ignored if speculation is disabled.\n", "--spec-prio=<priority>");
+	fprintf(stdout, " %-30s Activate fast abort with multiplier <multiplier> (default is disabled).\n", "-f <multiplier>");
 }
 
 static void display_progress( struct work_queue *q )
@@ -139,13 +142,15 @@ static void display_progress( struct work_queue *q )
 
 	double speedup = (sequential_run_time*tasks_done)/(current-start_time);
 
-	printf("%2.02lf%% %6d %6ds %4d %4d %4d %4d %4d %4d %.02lf\n",100.0*cells_complete/cells_total,cells_complete,(int)(time(0)-start_time),info.workers_init,info.workers_ready,info.workers_busy,info.tasks_waiting,info.tasks_running,info.tasks_complete,speedup);
+	printf("%8.02lf%% %8d %8ds %6d %6d %6d %6d %6d %6d %8.02lf\n",
+		   100.0*cells_complete/cells_total,cells_complete,(int)(time(0)-start_time),info.workers_init,info.workers_ready,info.workers_busy,info.tasks_waiting,info.tasks_running,info.tasks_complete,speedup);
 
 		if(bmap) {
 			bitmap_save_bmp(bmap,progress_bitmap_file);
 		}
 
 	last_display_time = current;
+	fflush(stdout);
 }
 
 void wavefront_bitmap_initialize( struct bitmap *b )
@@ -169,13 +174,15 @@ int main( int argc, char *argv[] )
 	char *work_queue_preferred_connection = NULL;
 	char *project = NULL;
 	int priority = 0;
-
+	char* transactions_file = NULL;
 	const char *progname = "wavefront";
-
+	float speculation = -1.0;
+	int spec_priority = 5;
 	debug_config(progname);
-
+	float fast_abort = -1;
 	enum {
-		LONG_OPT_PREFERRED_CONNECTION
+		LONG_OPT_PREFERRED_CONNECTION,
+		LONG_OPT_SPEC_PRIO
 	};
 
 	static const struct option long_options[] = {
@@ -187,14 +194,16 @@ int main( int argc, char *argv[] )
 		{"debug-file", required_argument, 0, 'o'},
 		{"port", required_argument, 0, 'p'},
 		{"priority", required_argument, 0, 'P'},
-		{"estimated-time", required_argument, 0, 't'},
 		{"random-port", required_argument, 0, 'Z'},
 		{"bitmap", required_argument, 0, 'B'},
 		{"work-queue-preferred-connection", required_argument, 0, LONG_OPT_PREFERRED_CONNECTION},
+		{"transaction-file", required_argument, 0, 't'},
+		{"speculation", required_argument, 0, 's'},
+		{"spec-prio", required_argument, 0, LONG_OPT_SPEC_PRIO},
 		{0,0,0,0}
 	};
 
-	while((c=getopt_long(argc,argv,"aB:d:hN:p:P:o:v:Z:", long_options, NULL)) >= 0) {
+	while((c=getopt_long(argc,argv,"aB:d:hN:p:P:o:v:Z:t:s:f:", long_options, NULL)) >= 0) {
 		switch(c) {
 			case 'a':
 			break;
@@ -231,6 +240,18 @@ int main( int argc, char *argv[] )
 		case LONG_OPT_PREFERRED_CONNECTION:
 			free(work_queue_preferred_connection);
 			work_queue_preferred_connection = xxstrdup(optarg);
+			break;
+		case 't':
+			transactions_file = xxstrdup(optarg);
+			break;
+		case 's':
+			speculation = atof(optarg);
+			break;
+		case LONG_OPT_SPEC_PRIO:
+			spec_priority = atoi(optarg);
+			break;
+		case 'f':
+			fast_abort = atof(optarg);
 			break;
 		default:
 			show_help(progname);
@@ -296,6 +317,12 @@ int main( int argc, char *argv[] )
 	if(work_queue_preferred_connection)
 		work_queue_manager_preferred_connection(queue, work_queue_preferred_connection);
 
+	if (speculation > -1.0)
+		work_queue_activate_speculation(queue, speculation, spec_priority);
+
+	if (fast_abort > 0.0)
+		work_queue_activate_fast_abort(queue, fast_abort);
+
 	fprintf(stdout, "%s: listening for workers on port %d...\n",progname,work_queue_port(queue));
 
 	if(progress_bitmap_file)
@@ -304,11 +331,18 @@ int main( int argc, char *argv[] )
 		wavefront_bitmap_initialize(bmap);
 	}
 
+	if(transactions_file)
+	{
+		work_queue_specify_transactions_log(queue, transactions_file);
+	}
 
 	task_prime();
 
 	struct work_queue_task *t;
 
+	fflush(stderr);
+	fflush(stdout);
+	printf("%% complete, # complete, elapsed time, workers init, workers ready, workers busy, tasks waiting, tasks running, tasks complete, speedup\n");
 	while(1) {
 		if(time(0)!=last_display_time) display_progress(queue);
 
@@ -335,5 +369,7 @@ int main( int argc, char *argv[] )
 	}
 
 	display_progress(queue);
+    work_queue_shut_down_workers(queue, 0);
+    work_queue_delete(queue);
 	return 0;
 }
